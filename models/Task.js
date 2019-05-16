@@ -3,10 +3,12 @@ const mongoose = require("mongoose");
 const TaskSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user"
+    ref: "user",
+    required: true
   },
   taskName: {
-    type: String
+    type: String,
+    required: true
   },
   dueDate: {
     type: Date
@@ -15,10 +17,9 @@ const TaskSchema = new mongoose.Schema({
     type: String
   },
   assignee: {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user"
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+    required: true
   },
   taskType: {
     type: String
