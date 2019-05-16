@@ -53,4 +53,54 @@ router.post('/', [auth, [
     }
 })
 
+// @route   GET api/task/:id
+// @desc    get a task
+// @access  Private
+router.get('/:id', auth, async (req, res) => {
+    const id = req.params.id;
+    try {
+        const task = await Task.findById(id);
+
+        if (!task) {
+            return res.status(400).json({ msg: 'Task not found' })
+        }
+
+        res.json(task);
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Server Error' })
+    }
+});
+
+// @route   POST api/task/:id
+// @desc    Update a task
+// @access  Private
+router.post('/:id', auth, async (req, res) => {
+    const id = req.params.id;
+    const { taskName, dueDate, description, assignee, taskType, template } = req.body;
+
+    const updates = {};
+    if (taskName) updates.taskName = taskName;
+    if (dueDate) updates.dueDate = dueDate;
+    if (description) updates.description = description;
+    if (assignee) updates.assignee = assignee;
+    if (taskType) updates.taskType = taskType;
+    if (template) updates.template = template;
+
+    try {
+        let task = await Task.findById(id);
+        if (!task) {
+            return res.status(400).json({ msg: 'Task not found' })
+        }
+
+        task = await Task.findOneAndUpdate(id, { $set: updates }, { new: true, useFindAndModify: false });
+        res.json(task);
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Server Error' })
+    }
+})
+
 module.exports = router;
