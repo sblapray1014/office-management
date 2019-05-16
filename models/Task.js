@@ -27,7 +27,21 @@ const TaskSchema = new mongoose.Schema({
   template: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "templates"
-  }
+  },
+  completeDate: {
+    type: Date
+  },
+  completedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user"
+  },
+  status: { //open, complete, in-progress, deleted
+    type: String,
+    default: "open"
+  },
+  notes: [{
+    type: String
+  }]
 });
 
 module.exports = Task = mongoose.model("task", TaskSchema);
