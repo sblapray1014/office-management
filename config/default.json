@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://cameronwilson:ADIrtplwaCvrWEll@office-management-aabel.mongodb.net/test?retryWrites=true",
+    "jwtSecret": "Spencer runs KW"
+}
