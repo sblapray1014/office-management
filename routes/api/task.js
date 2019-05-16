@@ -103,4 +103,55 @@ router.post('/:id', auth, async (req, res) => {
     }
 })
 
+// @route   POST api/task/:id/complete
+// @desc    Completes a task
+// @access  Private
+router.post('/:id/complete', auth, async (req, res) => {
+    const id = req.params.id;
+
+    const updates = {};
+    updates.status = "complete";
+    updates.completeDate = Date.now();
+    updates.completedBy = req.user.id;
+
+    try {
+        let task = await Task.findById(id);
+        if (!task) {
+            return res.status(400).json({ msg: 'Task not found' })
+        }
+
+        task = await Task.findOneAndUpdate(id, { $set: updates }, { new: true, useFindAndModify: false });
+        res.json(task);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Server Error' })
+    }
+})
+
+// @route   POST api/task/:id/uncomplete
+// @desc    Uncompletes a task
+// @access  Private
+router.post('/:id/uncomplete', auth, async (req, res) => {
+    const id = req.params.id;
+
+    // const setUpdates = {};
+    // const unsetUpdates = {};
+    // setUpdates.status = "open";
+    // unsetUpdates.completeDate = "";
+    // unsetUpdates.completedBy = "";
+
+    try {
+        let task = await Task.findById(id);
+        if (!task) {
+            return res.status(400).json({ msg: 'Task not found' })
+        }
+
+        task = await Task.findOneAndUpdate(id, { $set: { status: "open" }, $unset: { completeDate: "", completedBy: "" } }, { new: true, useFindAndModify: false });
+        res.json(task);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Server Error' })
+    }
+})
+
 module.exports = router;
