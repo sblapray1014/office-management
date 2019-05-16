@@ -2,14 +2,8 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
   name: {
-    first: {
-      type: String,
-      required: true
-    },
-    last: {
-      type: String,
-      required: true
-    }
+    type: String,
+    required: true
   },
   email: {
     type: String,
@@ -30,16 +24,14 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
   joinDate: {
-    type: Date,
-    required: true
+    type: Date
   },
   anniversaryDate: {
     type: Date
   },
   inCoaching: {
     type: Boolean,
-    default: false,
-    required: true
+    default: false
   },
   onTeam: {
     type: Boolean,
@@ -64,7 +56,8 @@ const UserSchema = new mongoose.Schema({
     type: Date
   },
   userLevel: {
-    type: Number
+    type: Number,
+    default: 1
   }
 });
 
