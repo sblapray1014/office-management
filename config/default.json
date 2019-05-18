@@ -1,4 +1,7 @@
 {
     "mongoURI": "mongodb+srv://cameronwilson:ADIrtplwaCvrWEll@office-management-aabel.mongodb.net/test?retryWrites=true",
-    "jwtSecret": "Spencer runs KW"
+    "jwtSecret": "Spencer runs KW",
+    "twilioId": "AC49bd425c325074bd7cc4f6544daa27a5",
+    "twilioAuth": "7dff5ec21278100e41049a6c9caff1a0",
+    "sendgridKey": "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"
 }
