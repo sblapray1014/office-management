@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator/check");
 
 const Task = require("../../models/Task");
+const Template = require("../../models/Template");
 const User = require("../../models/User");
 const auth = require("../../middleware/auth");
 
@@ -27,7 +28,7 @@ router.get("/", auth, async (req, res) => {
 // @desc    create a task
 // @access  Private
 router.post(
-    "/",
+    "/:user",
     [
         auth,
         [
@@ -41,13 +42,13 @@ router.post(
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { id, brokerage } = req.user;
-
+        const { brokerage } = req.user;
+        const user = req.params.user;
         const { taskName, assignee, taskType, status, notes, template, dueDate, description } = req.body;
 
         try {
             let task = new Task({
-                user: id,
+                user,
                 taskName,
                 taskType,
                 assignee,
@@ -95,11 +96,19 @@ router.get('/brokerage', auth, async (req, res) => {
 router.get("/:id", auth, async (req, res) => {
     const id = req.params.id;
     try {
-        const task = await Task.findById(id);
+        let task = await Task.findById(id);
 
         if (!task) {
             return res.status(400).json({ msg: "Task not found" });
         }
+        const user = await User.findById(task.user);
+        const template = await Template.findById(task.template);
+
+        task = {
+            ...task._doc, templateInfo: { ...template._doc }
+        }
+
+        task.templateInfo.body = task.templateInfo.body.replace(/{{name}}/gi, user.name);
 
         res.json(task);
     } catch (error) {
@@ -164,6 +173,10 @@ router.post("/:id/complete", auth, async (req, res) => {
         if (!task) {
             return res.status(400).json({ msg: "Task not found" });
         }
+
+
+
+
 
         task = await Task.findOneAndUpdate(
             id,
