@@ -4,14 +4,8 @@ const { check, validationResult } = require("express-validator/check");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-<<<<<<< HEAD
-const config = require('config');
-const User = require('../../models/User');
-const auth = require('../../middleware/auth');
-=======
 const config = require("config");
 const User = require("../../models/User");
->>>>>>> master
 
 // @route   POST api/users
 // @desc    register user
@@ -34,7 +28,15 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, phone, password } = req.body;
+    const {
+      name,
+      email,
+      phone,
+      brokerage,
+      password,
+      inCoaching,
+      onTeam
+    } = req.body;
 
     try {
       let user = await User.findOne({ email });
@@ -49,7 +51,10 @@ router.post(
         name,
         email,
         phone,
-        password
+        brokerage,
+        password,
+        inCoaching,
+        onTeam
       });
 
       const salt = await bcrypt.genSalt(10);
@@ -80,32 +85,4 @@ router.post(
   }
 );
 
-<<<<<<< HEAD
-});
-
-// @route   POST api/users
-// @desc    get user logged in user
-// @access  Private
-router.get('/', auth, async (req, res) => {
-    const id = req.user.id;
-    try {
-        const user = await User.findById(id).select('-password');
-        if (!user) {
-            return res.status(400).json({ msg: 'User not found' });
-        }
-        res.json(user);
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json('Server Error');
-    }
-})
-
-
-// @route   POST api/users/brokerage
-// @desc    get user by logged in user's brokerage
-// @access  Private
-
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> master
