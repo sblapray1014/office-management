@@ -58,6 +58,14 @@ const UserSchema = new mongoose.Schema({
   userLevel: {
     type: Number,
     default: 1
+  },
+  brokerage: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "brokerage",
+    required: true
+  },
+  signature: {
+    type: String
   }
 });
 

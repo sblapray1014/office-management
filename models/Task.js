@@ -22,7 +22,8 @@ const TaskSchema = new mongoose.Schema({
     required: true
   },
   taskType: {
-    type: String
+    type: String,
+    required: true
   },
   template: {
     type: mongoose.Schema.Types.ObjectId,
@@ -39,9 +40,14 @@ const TaskSchema = new mongoose.Schema({
     type: String,
     default: "open"
   },
-  notes: [{
+  notes: {
     type: String
-  }]
+  },
+  brokerage: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "brokerage",
+    required: true
+  }
 });
 
 module.exports = Task = mongoose.model("task", TaskSchema);
