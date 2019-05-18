@@ -2,20 +2,18 @@ import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import UserItem from "./UserItem";
+import BrokerageItem from "./BrokerageItem";
 import Spinner from "../layout/Spinner";
-import { getUsers } from "../../actions/auth";
-import { getBrokerages } from "../../actions/brokerages";
+import { getUsers, getBrokerages } from "../../actions/auth";
 
 const Users = ({
   getUsers,
   getBrokerages,
-  auth: { users, loading },
-  brokerages: { brokerage }
+  auth: { users, brokerages, loading }
 }) => {
   useEffect(() => {
     getUsers();
     getBrokerages();
-    console.log(getBrokerages());
   }, [getUsers]);
 
   return (
@@ -24,7 +22,15 @@ const Users = ({
         <Spinner />
       ) : (
         <Fragment>
-          <h1 className="large text-primary">Agents at </h1>
+          <div classname="profiles">
+            {brokerages.length > 0 ? (
+              brokerages.map(brokerage => (
+                <BrokerageItem key={brokerage._id} brokerage={brokerage} />
+              ))
+            ) : (
+              <h4>No Brokerage found </h4>
+            )}
+          </div>
           <div className="profiles">
             {users.length > 0 ? (
               users.map(user => <UserItem key={user._id} user={user} />)
@@ -40,13 +46,11 @@ const Users = ({
 
 Users.propTypes = {
   getUsers: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  brokerages: PropTypes.array.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  brokerages: state.brokerages
+  auth: state.auth
 });
 
 export default connect(

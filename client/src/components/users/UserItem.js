@@ -2,24 +2,40 @@ import React, { Fragment } from "react";
 
 import PropTypes from "prop-types";
 
-const UserItem = ({ user: { name, email, phone, inCoaching, onTeam } }) => {
+const UserItem = ({
+  user: { name, email, phone, inCoaching, onTeam },
+  brokerage
+}) => {
   return (
     <div className="profile bg-light">
       <h2>{name}</h2>
-      <p> Agent at </p>
-      <p>{onTeam}</p>
       <p>
-        {inCoaching == true ? (
+        {onTeam == true ? (
           <Fragment>
-            <p style={{ color: "green", fontWeight: "bold" }}>
-              <i className="fas fa-user-check" /> This Agent is in Coaching!
+            <p style={{ fontWeight: "bold" }}>
+              <i className="fas fa-user-check" /> On A Team!
             </p>
           </Fragment>
         ) : (
           <Fragment>
-            <p>
+            <p style={{ fontWeight: "bold" }}>
+              <i className="fas fa-user-negative" /> Not On A Team!
+            </p>
+          </Fragment>
+        )}
+      </p>
+      <p>
+        {inCoaching == true ? (
+          <Fragment>
+            <p className="text-primary" style={{ fontWeight: "bold" }}>
+              <i className="fas fa-user-check" /> In Coaching!
+            </p>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <p className="text-kw" style={{ fontWeight: "bold" }}>
               <i className="fas fa-user-minus" />
-              This Agent is Not in Coaching
+              Not in Coaching
             </p>
           </Fragment>
         )}
