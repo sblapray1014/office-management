@@ -9,7 +9,8 @@ import {
   LOGOUT,
   AUTH_ERROR,
   GET_USERS,
-  USERS_ERROR
+  USERS_ERROR,
+  GET_BROKERAGES
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -48,6 +49,18 @@ export const getUsers = () => async dispatch => {
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
+};
+
+// Get Brokerages
+export const getBrokerages = () => async dispatch => {
+  try {
+    const res = await axios.get("/api/brokerage/all");
+
+    dispatch({
+      type: GET_BROKERAGES,
+      payload: res.data
+    });
+  } catch (err) {}
 };
 
 // Register user
