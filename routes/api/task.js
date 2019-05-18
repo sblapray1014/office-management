@@ -182,48 +182,55 @@ router.post("/:id", auth, async (req, res) => {
 // @access  Private
 router.post("/:id/complete", auth, async (req, res) => {
   const id = req.params.id;
-  const { body, subject } = req.body;
+    const { body, subject } = req.body;
 
-  const updates = {};
-  updates.status = "complete";
-  updates.completeDate = Date.now();
-  updates.completedBy = req.user.id;
+    const updates = {};
+    updates.status = "complete";
+    updates.completeDate = Date.now();
+    updates.completedBy = req.user.id;
 
-  try {
-    let task = await Task.findById(id);
-    if (!task) {
-      return res.status(400).json({ msg: "Task not found" });
-    }
+    try {
+        let task = await Task.findById(id);
+        if (!task) {
+            return res.status(400).json({ msg: "Task not found" });
+        }
 
-    const user = await User.findById(task.user);
-    const assignee = await User.findById(task.assignee);
-    const brokerage = await Brokerage.findById(assignee.brokerage);
+        const user = await User.findById(task.user);
+        const assignee = await User.findById(task.assignee);
+        const brokerage = await Brokerage.findById(assignee.brokerage);
 
-    if (task.taskType == "email") {
-      let msg = {
-        to: user.email,
-        from: assignee.email,
-        subject,
-        text: body
-      };
-      sgMail.send(msg);
-    } else if (task.taskType == "text") {
-      //send text through twilio
-      let msg = {
-        from: brokerage.twilioPhone,
-        body,
-        to: user.phone
-      };
-      const sms = await client.messages.create(msg);
-      console.log(sms);
-    }
 
-    task = await Task.findOneAndUpdate(
-      id,
-      { $set: updates },
-      { new: true, useFindAndModify: false }
-    );
-    res.json(task);
+
+        if (task.taskType == 'email') {
+            let msg = {
+                to: user.email,
+                from: assignee.email,
+                subject,
+                text: body
+            }
+            sgMail.send(msg);
+        }
+        if (task.taskType == 'text') {
+            if (!brokerage.twilioPhone) {
+                return res.status(400).json({ msg: 'Texting number not set up' })
+            }
+            //send text through twilio
+            console.log(brokerage.twilioPhone);
+            let msg = {
+                from: "+13852573286",
+                body,
+                to: user.phone
+            }
+            const sms = await client.messages.create(msg);
+            console.log(sms);
+        }
+
+        task = await Task.findOneAndUpdate(
+            { _id: id },
+            { $set: updates },
+            { new: true, useFindAndModify: false }
+        );
+        res.json(task);
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Server Error" });
