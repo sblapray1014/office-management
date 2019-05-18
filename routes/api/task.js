@@ -1,11 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator/check");
+const config = require('config');
+const sgMail = require('@sendgrid/mail');
 
 const Task = require("../../models/Task");
 const Template = require("../../models/Template");
 const User = require("../../models/User");
+const Brokerage = require("../../models/Brokerage");
 const auth = require("../../middleware/auth");
+
+sgMail.setApiKey(config.get('sendgridKey'));
+const accountSid = config.get('twilioId');
+const authToken = config.get('twilioAuth');
+const client = require('twilio')(accountSid, authToken);
 
 // @route   GET api/task
 // @desc    get all tasks by logged in user
@@ -24,7 +32,7 @@ router.get("/", auth, async (req, res) => {
     }
 });
 
-// @route   POST api/task
+// @route   POST api/task/:user
 // @desc    create a task
 // @access  Private
 router.post(
@@ -162,6 +170,7 @@ router.post("/:id", auth, async (req, res) => {
 // @access  Private
 router.post("/:id/complete", auth, async (req, res) => {
     const id = req.params.id;
+    const { body, subject } = req.body;
 
     const updates = {};
     updates.status = "complete";
@@ -174,9 +183,28 @@ router.post("/:id/complete", auth, async (req, res) => {
             return res.status(400).json({ msg: "Task not found" });
         }
 
+        const user = await User.findById(task.user);
+        const assignee = await User.findById(task.assignee);
+        const brokerage = await Brokerage.findById(assignee.brokerage);
 
-
-
+        if (task.taskType == 'email') {
+            let msg = {
+                to: user.email,
+                from: assignee.email,
+                subject,
+                text: body
+            }
+            sgMail.send(msg);
+        } else if (task.taskType == 'text') {
+            //send text through twilio
+            let msg = {
+                from: brokerage.twilioPhone,
+                body,
+                to: user.phone
+            }
+            const sms = await client.messages.create(msg);
+            console.log(sms);
+        }
 
         task = await Task.findOneAndUpdate(
             id,
@@ -195,12 +223,6 @@ router.post("/:id/complete", auth, async (req, res) => {
 // @access  Private
 router.post("/:id/uncomplete", auth, async (req, res) => {
     const id = req.params.id;
-
-    // const setUpdates = {};
-    // const unsetUpdates = {};
-    // setUpdates.status = "open";
-    // unsetUpdates.completeDate = "";
-    // unsetUpdates.completedBy = "";
 
     try {
         let task = await Task.findById(id);
