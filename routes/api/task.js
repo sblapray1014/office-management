@@ -5,7 +5,7 @@ const config = require('config');
 const sgMail = require('@sendgrid/mail');
 
 const Task = require("../../models/Task");
-const Template = require("../../models/Templates");
+const Template = require("../../models/Template");
 const User = require("../../models/User");
 const Brokerage = require("../../models/Brokerage");
 const auth = require("../../middleware/auth");
