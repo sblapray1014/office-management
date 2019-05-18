@@ -7,7 +7,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  AUTH_ERROR
+  AUTH_ERROR,
+  GET_USERS,
+  USERS_ERROR
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -27,6 +29,23 @@ export const loadUser = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: AUTH_ERROR
+    });
+  }
+};
+
+//Get All Users
+export const getUsers = () => async dispatch => {
+  try {
+    const res = await axios.get("/api/auth/all");
+
+    dispatch({
+      type: GET_USERS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: USERS_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };

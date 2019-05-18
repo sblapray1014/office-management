@@ -8,26 +8,67 @@ const config = require('config');
 const User = require('../../models/User');
 const auth = require('../../middleware/auth');
 
+
 // @route   POST api/users
 // @desc    register user
 // @access  Public
 router.post(
-    "/",
-    [
-        check("name", "Name is required")
-            .not()
-            .isEmpty(),
-        check("email", "Please include a valid email").isEmail(),
-        check(
-            "password",
-            "Please enter a password with 6 or more characters"
-        ).isLength({ min: 6 })
-    ],
-    async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
+
+  "/",
+  [
+    check("name", "Name is required")
+      .not()
+      .isEmpty(),
+    check("email", "Please include a valid email").isEmail(),
+    check(
+      "password",
+      "Please enter a password with 6 or more characters"
+    ).isLength({ min: 6 })
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const {
+      name,
+      email,
+      phone,
+      brokerage,
+      password,
+      inCoaching,
+      onTeam
+    } = req.body;
+
+    try {
+      let user = await User.findOne({ email });
+
+      if (user) {
+        return res
+          .status(400)
+          .json({ errors: [{ message: "User already exists" }] });
+      }
+
+      user = new User({
+        name,
+        email,
+        phone,
+        brokerage,
+        password,
+        inCoaching,
+        onTeam
+      });
+
+      const salt = await bcrypt.genSalt(10);
+
+      user.password = await bcrypt.hash(password, salt);
+
+      await user.save();
+
+      const payload = {
+        user: {
+          id: user.id
 
         const { name, email, phone, password } = req.body;
 
@@ -74,7 +115,7 @@ router.post(
         }
     }
 );
-
+=======
 // @route   POST api/users
 // @desc    get user logged in user
 // @access  Private
@@ -96,5 +137,6 @@ router.get('/', auth, async (req, res) => {
 // @route   POST api/users/brokerage
 // @desc    get user by logged in user's brokerage
 // @access  Private
+
 
 module.exports = router;
