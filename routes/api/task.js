@@ -33,19 +33,45 @@ router.post('/', [auth, [
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
+    const { id, brokerage } = req.user;
 
-    const { user, taskName, assignee } = req.body;
+    const { taskName, assignee, taskType, status, notes, template, dueDate, description } = req.body;
 
     try {
         let task = new Task({
-            user,
+            user: id,
             taskName,
-            assignee
+            taskType,
+            assignee,
+            brokerage,
+            status,
+            template,
+            notes,
+            dueDate,
+            description
         });
 
         await task.save();
 
         res.json(task);
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ msg: 'Server Error' })
+    }
+});
+
+// @route   GET api/task/brokerage
+// @desc    get all tasks by logged in user's brokerage
+// @access  Private
+router.get('/brokerage', auth, async (req, res) => {
+    try {
+        const tasks = await Task.find({ brokerage: req.user.brokerage });
+        if (tasks.length === 0) {
+            return res.json({ msg: 'Brokerage has no tasks' })
+        }
+
+        res.json(tasks);
 
     } catch (error) {
         console.log(error);

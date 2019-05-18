@@ -22,11 +22,31 @@ const TaskSchema = new mongoose.Schema({
     required: true
   },
   taskType: {
-    type: String
+    type: String,
+    required: true
   },
   template: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "templates"
+  },
+  completeDate: {
+    type: Date
+  },
+  completedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user"
+  },
+  status: { //open, complete, in-progress, deleted
+    type: String,
+    default: "open"
+  },
+  notes: {
+    type: String
+  },
+  brokerage: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "brokerage",
+    required: true
   }
 });
 
