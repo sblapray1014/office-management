@@ -6,19 +6,19 @@ import PropTypes from "prop-types";
 const UserItem = ({ user }) => {
   const users = user.map(user => (
     <tr key={user._id}>
-      <td className="agent-font" style={{ alignContent: "center" }}>
+      <td className="agent-font" style={{ textAlign: "center" }}>
         {user.name}
       </td>
-      <td className="agent-font" style={{ alignContent: "center" }}>
+      <td className="agent-font" style={{ textAlign: "center" }}>
         {user.email}
       </td>
-      <td className="agent-font" style={{ alignContent: "center" }}>
+      <td className="agent-font" style={{ textAlign: "center" }}>
         {user.phone}
       </td>
-      <td className="agent-font" style={{ alignContent: "center" }}>
+      <td className="agent-font" style={{ textAlign: "center" }}>
         {user.inCoaching === true ? <span>Yes</span> : <span>No</span>}
       </td>
-      <td className="agent-font" style={{ alignContent: "center" }}>
+      <td className="agent-font" style={{ textAlign: "center" }}>
         {user.onTeam === true ? <span>Yes</span> : <span>No</span>}
       </td>
       <td className="agent-font">
