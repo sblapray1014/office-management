@@ -243,6 +243,11 @@ img {
   height: 100%;
 }
 
+/* Fonts */
+.agent-font {
+  font-family: "Merriweather", serif;
+}
+
 /* Forms */
 .form .form-group {
   margin: 1.2rem 0;
