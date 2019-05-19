@@ -22,7 +22,7 @@ const Users = ({
         <Spinner />
       ) : (
         <Fragment>
-          <div classname="profiles">
+          <div className="profiles">
             {brokerages.length > 0 ? (
               brokerages.map(brokerage => (
                 <BrokerageItem key={brokerage._id} brokerage={brokerage} />
@@ -31,13 +31,7 @@ const Users = ({
               <h4>No Brokerage found </h4>
             )}
           </div>
-          <div className="profiles">
-            {users.length > 0 ? (
-              users.map(user => <UserItem key={user._id} user={user} />)
-            ) : (
-              <h4>No Agents found</h4>
-            )}
-          </div>
+          <UserItem user={users} />
         </Fragment>
       )}
     </Fragment>

@@ -1,48 +1,53 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
-const UserItem = ({
-  user: { name, email, phone, inCoaching, onTeam },
-  brokerage
-}) => {
+const UserItem = ({ user }) => {
+  const users = user.map(user => (
+    <tr key={user._id}>
+      <td className="agent-font" style={{ alignContent: "center" }}>
+        {user.name}
+      </td>
+      <td className="agent-font" style={{ alignContent: "center" }}>
+        {user.email}
+      </td>
+      <td className="agent-font" style={{ alignContent: "center" }}>
+        {user.phone}
+      </td>
+      <td className="agent-font" style={{ alignContent: "center" }}>
+        {user.inCoaching === true ? <span>Yes</span> : <span>No</span>}
+      </td>
+      <td className="agent-font" style={{ alignContent: "center" }}>
+        {user.onTeam === true ? <span>Yes</span> : <span>No</span>}
+      </td>
+      <td className="agent-font">
+        <Link
+          to="/profile "
+          className="btn btn-dark"
+          style={{ color: "white" }}
+        >
+          View Profile
+        </Link>
+      </td>
+    </tr>
+  ));
   return (
-    <div className="profile bg-light">
-      <h2>{name}</h2>
-      <p>
-        {onTeam == true ? (
-          <Fragment>
-            <p style={{ fontWeight: "bold" }}>
-              <i className="fas fa-user-check" /> On A Team!
-            </p>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <p style={{ fontWeight: "bold" }}>
-              <i className="fas fa-user-negative" /> Not On A Team!
-            </p>
-          </Fragment>
-        )}
-      </p>
-      <p>
-        {inCoaching == true ? (
-          <Fragment>
-            <p className="text-primary" style={{ fontWeight: "bold" }}>
-              <i className="fas fa-user-check" /> In Coaching!
-            </p>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <p className="text-kw" style={{ fontWeight: "bold" }}>
-              <i className="fas fa-user-minus" />
-              Not in Coaching
-            </p>
-          </Fragment>
-        )}
-      </p>
-      <p>Email Address: {email}</p>
-      <p>Phone Number: {phone}</p>
-    </div>
+    <Fragment>
+      <table className="table" style={{ width: "100%" }}>
+        <thead>
+          <tr>
+            <th style={{ textAlign: "center " }}>Name</th>
+            <th style={{ textAlign: "center " }}>Email</th>
+            <th style={{ textAlign: "center " }}>Phone Number</th>
+            <th style={{ textAlign: "center " }}>In Coaching</th>
+            <th style={{ textAlign: "center " }}>On A Team</th>
+            <th style={{ textAlign: "center " }}>View Agent Profile</th>
+          </tr>
+        </thead>
+        <tbody>{users}</tbody>
+      </table>
+    </Fragment>
   );
 };
 

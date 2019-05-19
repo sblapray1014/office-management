@@ -60,7 +60,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <div className="form-group">
           <input
             type="text"
-            placeholder="Phone Number"
+            placeholder="Phone Number - Please format eg: 801-822-8325"
             name="phone"
             value={phone}
             onChange={e => onChange(e)}

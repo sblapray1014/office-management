@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 import PropTypes from "prop-types";
 
@@ -11,7 +11,7 @@ const BrokerageItem = ({ brokerage: { name, city, state } }) => {
 };
 
 BrokerageItem.propTypes = {
-  brokerages: PropTypes.object.isRequired
+  brokerage: PropTypes.object.isRequired
 };
 
 export default BrokerageItem;
