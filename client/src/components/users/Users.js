@@ -14,7 +14,17 @@ const Users = ({
   useEffect(() => {
     getUsers();
     getBrokerages();
-  }, [getUsers]);
+  }, [getUsers, getBrokerages]);
+
+  // const [formData, setFormData] = useState({
+  //   filtered: []
+  // });
+
+  // const onChange = e => {
+  //   let currentList = [];
+
+  //   let newList = [];
+  // };
 
   return (
     <Fragment>
