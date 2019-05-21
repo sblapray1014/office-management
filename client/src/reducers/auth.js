@@ -8,7 +8,10 @@ import {
   AUTH_ERROR,
   GET_USERS,
   USERS_ERROR,
-  GET_BROKERAGES
+  GET_BROKERAGES,
+  USER_TASKS,
+  BROKERAGE_TASKS,
+  TASK_ERROR
 } from "../actions/types";
 
 const initialState = {
@@ -16,7 +19,8 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   users: [],
-  brokerages: {}
+  brokerages: {},
+  tasks: {}
 };
 
 export default function(state = initialState, action) {
@@ -53,11 +57,32 @@ export default function(state = initialState, action) {
         loading: false,
         isAuthenticated: true
       };
+    case USER_TASKS:
+    case BROKERAGE_TASKS:
+      return {
+        ...state,
+        tasks: payload,
+        loading: false,
+        isAuthenticed: true
+      };
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
-    case LOGOUT:
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false
+      };
     case USERS_ERROR:
+    case TASK_ERROR:
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: true
+      };
+    case LOGOUT:
+      localStorage.removeItem("token");
       return {
         ...state,
         token: null,

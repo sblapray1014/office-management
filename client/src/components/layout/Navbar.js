@@ -13,8 +13,13 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Link>
       </li>
       <li>
-        <Link to="/tasks">
-          <i className="fas fa-tasks" /> <span>Tasks</span>
+        <Link to="/tasks/me">
+          <i className="fas fa-tasks" /> <span>My Tasks</span>
+        </Link>
+      </li>
+      <li>
+        <Link to="/tasks/brokerage">
+          <i className="fas fa-tasks" /> <span>Brokerage Tasks</span>
         </Link>
       </li>
       <li>

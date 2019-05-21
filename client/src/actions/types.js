@@ -10,3 +10,6 @@ export const REMOVE_ALERT = "REMOVE_ALERT";
 export const GET_USERS = "GET_USERS";
 export const USERS_ERROR = "USERS_ERROR";
 export const GET_BROKERAGES = "GET_BROKERAGES";
+export const USER_TASKS = "USER_TASKS";
+export const TASK_ERROR = "TASK_ERROR";
+export const BROKERAGE_TASKS = "BROKERAGE_TASKS";

@@ -52,7 +52,7 @@ const UserItem = ({ user }) => {
 };
 
 UserItem.propTypes = {
-  users: PropTypes.object.isRequired
+  user: PropTypes.array.isRequired
 };
 
 export default UserItem;

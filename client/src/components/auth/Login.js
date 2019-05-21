@@ -22,7 +22,7 @@ const Login = ({ login, isAuthenticated }) => {
 
   // Redirect if user is logged in
   if (isAuthenticated) {
-    return <Redirect to="/users" />;
+    return <Redirect to="/tasks/me" />;
   }
 
   return (

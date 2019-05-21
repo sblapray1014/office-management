@@ -5,6 +5,7 @@ import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import UserTask from "./components/tasks/UserTask";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import Users from "./components/users/Users";
 
@@ -34,6 +35,7 @@ const App = () => {
               <Route exact path="/Register" component={Register} />
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/users" component={Users} />
+              <PrivateRoute exact path="/tasks/me" component={UserTask} />
             </Switch>
           </section>
         </Fragment>
