@@ -10,11 +10,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     name: "",
     email: "",
     phone: "",
+    brokerage: "",
     password: "",
     password2: ""
   });
 
-  const { name, email, phone, password, password2 } = formData;
+  const { name, email, phone, brokerage, password, password2 } = formData;
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,12 +25,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if (password !== password2) {
       setAlert("Passwords do not match", "danger");
     } else {
-      register({ name, email, phone, password });
+      register({ name, email, brokerage, phone, password });
     }
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/users" />;
+    return <Redirect to="/tasks/me" />;
   }
 
   return (
@@ -63,6 +64,15 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             placeholder="Phone Number - Please format eg: 801-822-8325"
             name="phone"
             value={phone}
+            onChange={e => onChange(e)}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Brokerage"
+            name="brokerage"
+            value={brokerage}
             onChange={e => onChange(e)}
           />
         </div>

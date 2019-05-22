@@ -36,9 +36,13 @@ const UserTask = ({
           ))
         ) : (
           <thead>
-            <tr>
-              <th style={{ textAlign: "center" }}>No Tasks Found </th>
-            </tr>
+            <tbody>
+              <tr>
+                <td style={{ fontWeight: "bold", textAlign: "center" }}>
+                  No Tasks Found
+                </td>
+              </tr>
+            </tbody>
           </thead>
         )}
       </table>
