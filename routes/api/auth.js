@@ -7,13 +7,16 @@ const bcrypt = require("bcryptjs");
 
 const config = require("config");
 const User = require("../../models/User");
+const Brokerage = require("../../models/Brokerage");
 
 // @route   GET api/auth
 // @desc    Get Auth User
 // @access  Private
 router.get("/", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user.id)
+      .select("-password")
+      .populate("brokerage");
     res.json({ user });
   } catch (err) {
     console.log(err.message);
@@ -26,7 +29,9 @@ router.get("/", auth, async (req, res) => {
 // @access  Private
 router.get("/all", auth, async (req, res) => {
   try {
-    const users = await User.find().populate("user", ["name"]);
+    const users = await User.find()
+      .populate("user", ["name"])
+      .populate("brokerage");
     res.json(users);
   } catch (err) {
     console.error(err.message);

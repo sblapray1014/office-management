@@ -23,7 +23,7 @@ router.get("/", auth, async (req, res) => {
 });
 
 // @route   GET api/brokerage/all
-// @desc    Get All Users
+// @desc    Get All Brokerages
 // @access  Private
 router.get("/all", auth, async (req, res) => {
   try {

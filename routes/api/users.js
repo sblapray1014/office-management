@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 
 const config = require("config");
 const User = require("../../models/User");
+const Brokerage = require("../../models/Brokerage");
 const auth = require("../../middleware/auth");
 
 // @route   POST api/users

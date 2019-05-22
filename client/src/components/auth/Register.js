@@ -11,11 +11,22 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     email: "",
     phone: "",
     brokerage: "",
+    inCoaching: false,
+    onTeam: false,
     password: "",
     password2: ""
   });
 
-  const { name, email, phone, brokerage, password, password2 } = formData;
+  const {
+    name,
+    email,
+    phone,
+    brokerage,
+    inCoaching,
+    onTeam,
+    password,
+    password2
+  } = formData;
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,7 +36,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if (password !== password2) {
       setAlert("Passwords do not match", "danger");
     } else {
-      register({ name, email, brokerage, phone, password });
+      register({ name, email, brokerage, inCoaching, onTeam, phone, password });
     }
   };
 
@@ -75,6 +86,28 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             value={brokerage}
             onChange={e => onChange(e)}
           />
+        </div>
+        <div className="form-group">
+          <span style={{ fontWeight: "bold" }}>
+            Is this agent in coaching? **This field defaults to no
+          </span>
+          <select
+            name="inCoaching"
+            value={inCoaching}
+            onChange={e => onChange(e)}
+          >
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <span style={{ fontWeight: "bold" }}>
+            Is this agent on a team? **This field defaults to no
+          </span>
+          <select name="onTeam" value={onTeam} onChange={e => onChange(e)}>
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
         </div>
         <div className="form-group">
           <input
