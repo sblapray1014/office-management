@@ -20,7 +20,9 @@ const client = require("twilio")(accountSid, authToken);
 // @access  Private
 router.get("/", auth, async (req, res) => {
   try {
-    const tasks = await Task.find({ assignee: req.user.id }).populate("user");
+    const tasks = await Task.find({ assignee: req.user.id })
+      .populate("user")
+      .populate("brokerage");
 
     if (tasks.length === 0) {
       return res.json({ msg: "User has no tasks" });
@@ -76,9 +78,9 @@ router.post(
         notes,
         dueDate,
         description
-      });
-
-      await task.save();
+      })
+        .populate("brokerage")
+        .populate("user");
 
       await task.save();
 
@@ -95,7 +97,9 @@ router.post(
 // @access  Private
 router.get("/brokerage", auth, async (req, res) => {
   try {
-    const tasks = await Task.find({ brokerage: req.user.brokerage });
+    const tasks = await Task.find({ brokerage: req.user.brokerage })
+      .populate("brokerage")
+      .populate("user");
     if (tasks.length === 0) {
       return res.json({ msg: "Brokerage has no tasks" });
     }

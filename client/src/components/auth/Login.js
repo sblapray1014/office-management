@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
@@ -60,7 +60,10 @@ const Login = ({ login, isAuthenticated }) => {
         />
       </form>
       <p className="my-1">
-        Don't have an account? <Link to="register">Register Here</Link>
+        Don't have an account?
+        <p className="text-primary" style={{ fontWeight: "bold" }}>
+          Please contact your administrator!
+        </p>
       </p>
     </Fragment>
   );

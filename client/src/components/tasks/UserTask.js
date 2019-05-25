@@ -35,11 +35,9 @@ const UserTask = ({
             <UserTaskItem key={task._id} task={task} authUser={user} />
           ))
         ) : (
-          <thead>
-            <tr>
-              <th style={{ textAlign: "center" }}>No Tasks Found </th>
-            </tr>
-          </thead>
+          <tbody style={{ fontWeight: "bold", textAlign: "center" }}>
+            No Tasks Found
+          </tbody>
         )}
       </table>
     </Fragment>
