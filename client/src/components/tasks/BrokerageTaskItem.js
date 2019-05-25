@@ -1,10 +1,12 @@
 import React, { Fragment } from "react";
+import t from "typy";
 
 import PropTypes from "prop-types";
 
 const BrokerageTaskItem = ({
   task: { user, assignee, status, taskName, taskType, _id },
-  users
+  agent,
+  brokerage
 }) => {
   //   const allUsers = users.map(user => {
   //     const userName = user.name;
@@ -18,10 +20,14 @@ const BrokerageTaskItem = ({
             {taskName}
           </td>
           <td className="agent-font" style={{ textAlign: "center" }}>
-            TODO - get AGENT
+            {user._id === agent._id ? (
+              <p>{agent.name}</p>
+            ) : (
+              <span>Agent Not Found</span>
+            )}
           </td>
           <td className="agent-font" style={{ textAlign: "center" }}>
-            TODO - get USER
+            TODO - get Assignee
           </td>
           <td className="agent-font" style={{ textAlign: "center" }}>
             {status}
@@ -39,7 +45,8 @@ const BrokerageTaskItem = ({
 };
 
 BrokerageTaskItem.propTypes = {
-  task: PropTypes.object.isRequired
+  task: PropTypes.object.isRequired,
+  brokerage: PropTypes.object
 };
 
 export default BrokerageTaskItem;

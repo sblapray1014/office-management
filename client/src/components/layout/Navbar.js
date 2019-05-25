@@ -13,6 +13,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Link>
       </li>
       <li>
+        <Link to="/register">
+          <i className="fas fa-user-plus" /> <span>Register New Agent</span>
+        </Link>
+      </li>
+      <li>
         <Link to="/tasks/me">
           <i className="fas fa-tasks" /> <span>My Tasks</span>
         </Link>
@@ -33,9 +38,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
   const guestLinks = (
     <ul>
-      <li>
-        <Link to="/register">Register</Link>
-      </li>
       <li>
         <Link to="/login">Login</Link>
       </li>

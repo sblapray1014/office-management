@@ -17,10 +17,22 @@ const BrokerageTask = ({
     getUsers();
   }, [getBrokerageTasks, getUsers, getBrokerages]);
   //   const userName = ((user || {}).user || {}).name;
+  let brokerageName;
+  let userName;
 
+  if (tasks.length > 0) {
+    tasks.map(task => {
+      brokerageName = task && task.brokerage ? task.brokerage.name : null;
+    });
+  }
+  if (users.length > 0) {
+    users.map(user => {
+      userName = user && user.name ? user.name : null;
+    });
+  }
   return (
     <Fragment>
-      <h1 className="large text-kw">'s Tasks</h1>
+      <h1 className="large text-kw">{brokerageName} Tasks</h1>
       <table className="table" style={{ width: "100%" }}>
         <thead>
           <tr>
@@ -37,8 +49,8 @@ const BrokerageTask = ({
             <BrokerageTaskItem
               key={task._id}
               task={task}
-              user={user}
-              users={users}
+              agent={task.user}
+              assignee={userName}
             />
           ))
         ) : (

@@ -78,7 +78,9 @@ router.post(
         notes,
         dueDate,
         description
-      });
+      })
+        .populate("brokerage")
+        .populate("user");
 
       await task.save();
 
@@ -95,7 +97,9 @@ router.post(
 // @access  Private
 router.get("/brokerage", auth, async (req, res) => {
   try {
-    const tasks = await Task.find({ brokerage: req.user.brokerage });
+    const tasks = await Task.find({ brokerage: req.user.brokerage })
+      .populate("brokerage")
+      .populate("user");
     if (tasks.length === 0) {
       return res.json({ msg: "Brokerage has no tasks" });
     }

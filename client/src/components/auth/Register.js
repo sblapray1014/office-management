@@ -40,15 +40,11 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     }
   };
 
-  if (isAuthenticated) {
-    return <Redirect to="/tasks/me" />;
-  }
-
   return (
     <Fragment>
-      <h1 className="large text-primary">Sign Up</h1>
+      <h1 className="large text-primary">Agent Registration</h1>
       <p className="lead">
-        <i className="fas fa-user" /> Create Your Account
+        <i className="fas fa-user" /> Register a New Agent
       </p>
       <form className="form" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
@@ -134,9 +130,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           style={{ color: "white" }}
         />
       </form>
-      <p className="my-1">
-        Already have an account? <Link to="/login">Sign In</Link>
-      </p>
     </Fragment>
   );
 };
