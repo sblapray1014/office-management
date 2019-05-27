@@ -32,7 +32,7 @@ const Users = ({
         <Spinner />
       ) : (
         <Fragment>
-          <div className="profiles">
+          <div className="user-container">
             {brokerages.length > 0 ? (
               brokerages.map(brokerage => (
                 <BrokerageItem key={brokerage._id} brokerage={brokerage} />

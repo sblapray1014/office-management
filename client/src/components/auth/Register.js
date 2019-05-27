@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
@@ -42,94 +41,96 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Agent Registration</h1>
-      <p className="lead">
-        <i className="fas fa-user" /> Register a New Agent
-      </p>
-      <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
+      <div className="register-container">
+        <h1 className="large text-primary">Agent Registration</h1>
+        <p className="lead">
+          <i className="fas fa-user" /> Register a New Agent
+        </p>
+        <form className="form" onSubmit={e => onSubmit(e)}>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Name"
+              name="name"
+              value={name}
+              onChange={e => onChange(e)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={email}
+              onChange={e => onChange(e)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Phone Number - Please format eg: 801-822-8325"
+              name="phone"
+              value={phone}
+              onChange={e => onChange(e)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Brokerage"
+              name="brokerage"
+              value={brokerage}
+              onChange={e => onChange(e)}
+            />
+          </div>
+          <div className="form-group">
+            <span style={{ fontWeight: "bold" }}>
+              Is this agent in coaching? **This field defaults to no
+            </span>
+            <select
+              name="inCoaching"
+              value={inCoaching}
+              onChange={e => onChange(e)}
+            >
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <span style={{ fontWeight: "bold" }}>
+              Is this agent on a team? **This field defaults to no
+            </span>
+            <select name="onTeam" value={onTeam} onChange={e => onChange(e)}>
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={e => onChange(e)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              name="password2"
+              value={password2}
+              onChange={e => onChange(e)}
+            />
+          </div>
           <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={name}
-            onChange={e => onChange(e)}
+            type="submit"
+            className="btn btn-kw"
+            value="Register "
+            style={{ color: "white" }}
           />
-        </div>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            value={email}
-            onChange={e => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Phone Number - Please format eg: 801-822-8325"
-            name="phone"
-            value={phone}
-            onChange={e => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Brokerage"
-            name="brokerage"
-            value={brokerage}
-            onChange={e => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <span style={{ fontWeight: "bold" }}>
-            Is this agent in coaching? **This field defaults to no
-          </span>
-          <select
-            name="inCoaching"
-            value={inCoaching}
-            onChange={e => onChange(e)}
-          >
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <span style={{ fontWeight: "bold" }}>
-            Is this agent on a team? **This field defaults to no
-          </span>
-          <select name="onTeam" value={onTeam} onChange={e => onChange(e)}>
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={e => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            name="password2"
-            value={password2}
-            onChange={e => onChange(e)}
-          />
-        </div>
-        <input
-          type="submit"
-          className="btn btn-kw"
-          value="Register "
-          style={{ color: "white" }}
-        />
-      </form>
+        </form>
+      </div>
     </Fragment>
   );
 };

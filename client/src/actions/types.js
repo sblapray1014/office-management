@@ -13,3 +13,6 @@ export const GET_BROKERAGES = "GET_BROKERAGES";
 export const USER_TASKS = "USER_TASKS";
 export const TASK_ERROR = "TASK_ERROR";
 export const BROKERAGE_TASKS = "BROKERAGE_TASKS";
+export const COMPLETE_TASK = "COMPLETE_TASK";
+export const UPDATE_TASK = "UPDATE_TASK";
+export const GET_TASK = "GET_TASK";

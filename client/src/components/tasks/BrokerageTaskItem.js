@@ -1,17 +1,18 @@
 import React, { Fragment } from "react";
-import t from "typy";
 
 import PropTypes from "prop-types";
 
 const BrokerageTaskItem = ({
   task: { user, assignee, status, taskName, taskType, _id },
   agent,
+  users,
   brokerage
 }) => {
-  //   const allUsers = users.map(user => {
-  //     const userName = user.name;
-  //     const userId = user._id;
-  //   });
+  const newUserObject = {};
+
+  newUserObject.id = user._id;
+  newUserObject.name = user.name;
+
   return (
     <Fragment>
       <tbody>
@@ -23,17 +24,17 @@ const BrokerageTaskItem = ({
             {user._id === agent._id ? (
               <p>{agent.name}</p>
             ) : (
-              <span>Agent Not Found</span>
+              <span>Agent not found</span>
             )}
           </td>
           <td className="agent-font" style={{ textAlign: "center" }}>
-            TODO - get Assignee
+            TODO - Get Assignee
           </td>
           <td className="agent-font" style={{ textAlign: "center" }}>
             {status}
           </td>
           <td className="agent-font" style={{ textAlign: "center" }}>
-            {taskType === {} ? <p>See Task Name!</p> : <p>{taskType}</p>}
+            {taskType === {} ? <p>See task tame!</p> : <p>{taskType}</p>}
           </td>
           <td className="agent-font" style={{ textAlign: "center" }}>
             <button className="btn btn-dark">Complete Task</button>

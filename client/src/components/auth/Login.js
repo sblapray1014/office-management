@@ -27,44 +27,47 @@ const Login = ({ login, isAuthenticated }) => {
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Sign In</h1>
-      <p className="lead">
-        <i className="fas fa-user" /> Sign Into Your Account
-      </p>
-      <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            value={email}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            minLength="6"
-            value={password}
-            onChange={e => onChange(e)}
-          />
-        </div>
-        <input
-          type="submit"
-          className="btn btn-kw"
-          value="Login"
-          style={{ color: "white" }}
-        />
-      </form>
-      <p className="my-1">
-        Don't have an account?
-        <p className="text-primary" style={{ fontWeight: "bold" }}>
-          Please contact your administrator!
+      <div className="login-container">
+        <h1 className="large text-primary">Sign In</h1>
+        <p className="lead">
+          <i className="fas fa-user" /> Sign Into Your Account
         </p>
-      </p>
+        <form className="form" onSubmit={e => onSubmit(e)}>
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Email Address"
+              name="email"
+              value={email}
+              onChange={e => onChange(e)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              auto-complete="current-password"
+              minLength="6"
+              value={password}
+              onChange={e => onChange(e)}
+            />
+          </div>
+          <input
+            type="submit"
+            className="btn btn-kw"
+            value="Login"
+            style={{ color: "white" }}
+          />
+        </form>
+        <h4 className="my-1">
+          Don't have an account?
+          <p className="text-primary" style={{ fontWeight: "bold" }}>
+            Please contact your administrator!
+          </p>
+        </h4>
+      </div>
     </Fragment>
   );
 };

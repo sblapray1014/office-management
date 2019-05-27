@@ -18,28 +18,30 @@ const UserTask = ({
 
   return (
     <Fragment>
-      <h1 className="large text-kw">{userName}'s Tasks</h1>
-      <table className="table" style={{ width: "100%" }}>
-        <thead>
-          <tr>
-            <th style={{ textAlign: "center" }}>Task Name</th>
-            <th style={{ textAlign: "center" }}>Agent</th>
-            <th style={{ textAlign: "center" }}>Assignee</th>
-            <th style={{ textAlign: "center" }}>Status</th>
-            <th style={{ textAlign: "center" }}>Task Type</th>
-            <th style={{ textAlign: "center" }}>Complete Task</th>
-          </tr>
-        </thead>
-        {tasks.length > 0 ? (
-          tasks.map(task => (
-            <UserTaskItem key={task._id} task={task} authUser={user} />
-          ))
-        ) : (
-          <tbody style={{ fontWeight: "bold", textAlign: "center" }}>
-            No Tasks Found
-          </tbody>
-        )}
-      </table>
+      <div className="task-display-container">
+        <h1 className="large text-kw">{userName}'s Tasks</h1>
+        <table className="table" style={{ width: "100%" }}>
+          <thead>
+            <tr>
+              <th style={{ textAlign: "center" }}>Task Name</th>
+              <th style={{ textAlign: "center" }}>Agent</th>
+              <th style={{ textAlign: "center" }}>Assignee</th>
+              <th style={{ textAlign: "center" }}>Status</th>
+              <th style={{ textAlign: "center" }}>Task Type</th>
+              <th style={{ textAlign: "center" }}>Complete Task</th>
+            </tr>
+          </thead>
+          {tasks.length > 0 ? (
+            tasks.map(task => (
+              <UserTaskItem key={task._id} task={task} authUser={user} />
+            ))
+          ) : (
+            <tbody style={{ fontWeight: "bold", textAlign: "center" }}>
+              No Tasks Found
+            </tbody>
+          )}
+        </table>
+      </div>
     </Fragment>
   );
 };
