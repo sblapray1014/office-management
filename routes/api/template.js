@@ -1,59 +1,66 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require("express-validator/check");
 
-const Template = require('../../models/Template');
-const auth = require('../../middleware/auth');
+const Template = require("../../models/Template");
+const auth = require("../../middleware/auth");
 
 // @route   GET api/template
 // @desc    get all templates by logged in user
 // @access  Private
-router.get('/', auth, async (req, res) => {
-    try {
-        const templates = await Template.find({ brokerage: req.user.brokerage });
-        if (templates.length === 0) {
-            return res.json({ msg: 'Brokerage has no templates' })
-        }
-
-        res.json(templates);
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: 'Server Error' })
+router.get("/", auth, async (req, res) => {
+  try {
+    const templates = await Template.find({ brokerage: req.user.brokerage });
+    if (templates.length === 0) {
+      return res.json({ msg: "Brokerage has no templates" });
     }
-})
+
+    res.json(templates);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Server Error" });
+  }
+});
 
 // @route   POST api/task
 // @desc    create a task
 // @access  Private
-router.post('/', [auth, [
-    check('templateName', 'Template name is require').not().isEmpty()
-]], async (req, res) => {
+router.post(
+  "/",
+  [
+    auth,
+    [
+      check("templateName", "Template name is require")
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
     const { brokerage } = req.user;
     const { templateName, title, subject, body, type } = req.body;
 
     try {
-        let template = new Template({
-            brokerage,
-            templateName,
-            title,
-            subject,
-            body,
-            type
-        });
+      let template = new Template({
+        brokerage,
+        templateName,
+        title,
+        subject,
+        body,
+        type
+      });
 
-        await template.save();
+      await template.save();
 
-        res.json(template);
-
+      res.json(template);
     } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ msg: 'Server Error' })
+      console.log(error.message);
+      res.status(500).json({ msg: "Server Error" });
     }
-})
+  }
+);
 
 module.exports = router;

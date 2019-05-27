@@ -9,7 +9,7 @@ import UserTask from "./components/tasks/UserTask";
 import BrokerageTask from "./components/tasks/BrokerageTask";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import Users from "./components/users/Users";
-
+import ShowTask from "./components/complete-tasks/ShowTask";
 //Redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -42,6 +42,7 @@ const App = () => {
                 path="/tasks/brokerage"
                 component={BrokerageTask}
               />
+              <PrivateRoute exact path="/tasks/me/:id" component={ShowTask} />
             </Switch>
           </section>
         </Fragment>

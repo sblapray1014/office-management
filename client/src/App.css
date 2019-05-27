@@ -27,6 +27,10 @@ a {
   text-decoration: none;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 ul {
   list-style: none;
 }
@@ -317,7 +321,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.7rem 2rem;
+  padding: 0.1rem 2rem;
   position: fixed;
   z-index: 1;
   width: 100%;
@@ -502,6 +506,14 @@ button {
   margin-bottom: 0.5rem;
 }
 
+.user-container,
+.register-container,
+.task-display-container,
+.login-container,
+.single-task {
+  margin-top: 40px;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
@@ -537,7 +549,7 @@ button {
   }
 
   .navbar h1 {
-    margin-bottom: 1rem;
+    margin-bottom: 5px;
   }
 
   .navbar .welcome {

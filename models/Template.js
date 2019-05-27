@@ -10,7 +10,8 @@ const TemplatesSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  type: { //email or text
+  type: {
+    //email or text
     type: String,
     required: true
   },

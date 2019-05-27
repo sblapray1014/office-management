@@ -22,7 +22,8 @@ router.get("/", auth, async (req, res) => {
   try {
     const tasks = await Task.find({ assignee: req.user.id })
       .populate("user")
-      .populate("brokerage");
+      .populate("brokerage")
+      .populate("template");
 
     if (tasks.length === 0) {
       return res.json({ msg: "User has no tasks" });
@@ -80,7 +81,8 @@ router.post(
         description
       })
         .populate("brokerage")
-        .populate("user");
+        .populate("user")
+        .populate("template");
 
       await task.save();
 
@@ -99,7 +101,8 @@ router.get("/brokerage", auth, async (req, res) => {
   try {
     const tasks = await Task.find({ brokerage: req.user.brokerage })
       .populate("brokerage")
-      .populate("user");
+      .populate("user")
+      .populate("template");
     if (tasks.length === 0) {
       return res.json({ msg: "Brokerage has no tasks" });
     }
@@ -117,7 +120,10 @@ router.get("/brokerage", auth, async (req, res) => {
 router.get("/:id", auth, async (req, res) => {
   const id = req.params.id;
   try {
-    let task = await Task.findById(id);
+    let task = await Task.findById(id)
+      .populate("user")
+      .populate("template")
+      .populate("brokerage");
 
     if (!task) {
       return res.status(400).json({ msg: "Task not found" });

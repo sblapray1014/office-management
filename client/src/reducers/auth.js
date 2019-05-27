@@ -11,7 +11,10 @@ import {
   GET_BROKERAGES,
   USER_TASKS,
   BROKERAGE_TASKS,
-  TASK_ERROR
+  TASK_ERROR,
+  COMPLETE_TASK,
+  GET_TASK,
+  UPDATE_TASK
 } from "../actions/types";
 
 const initialState = {
@@ -20,7 +23,8 @@ const initialState = {
   loading: true,
   users: [],
   brokerages: {},
-  tasks: {}
+  tasks: {},
+  task: {}
 };
 
 export default function(state = initialState, action) {
@@ -78,6 +82,15 @@ export default function(state = initialState, action) {
     case TASK_ERROR:
       return {
         ...state,
+        loading: false,
+        isAuthenticated: true
+      };
+    case COMPLETE_TASK:
+    case GET_TASK:
+    case UPDATE_TASK:
+      return {
+        ...state,
+        task: payload,
         loading: false,
         isAuthenticated: true
       };

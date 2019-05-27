@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
@@ -30,7 +31,9 @@ const UserTaskItem = ({
             {taskType === {} ? <p>See Task Name!</p> : <p>{taskType}</p>}
           </td>
           <td className="agent-font" style={{ textAlign: "center" }}>
-            <button className="btn btn-dark">Complete Task</button>
+            <Link to={`/tasks/me/${_id}`} className="btn btn-dark">
+              Complete Task
+            </Link>
           </td>
         </tr>
       </tbody>
