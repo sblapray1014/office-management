@@ -193,7 +193,7 @@ router.post("/:id", auth, async (req, res) => {
 // @access  Private
 router.post("/:id/complete", auth, async (req, res) => {
   const id = req.params.id;
-  const { body, subject } = req.body;
+  const { body, subject, from } = req.body;
 
   const updates = {};
   updates.status = "complete";
@@ -201,7 +201,10 @@ router.post("/:id/complete", auth, async (req, res) => {
   updates.completedBy = req.user.id;
 
   try {
-    let task = await Task.findById(id);
+    let task = await Task.findById(id)
+      .populate("user")
+      .populate("template")
+      .populate("brokerage");
     if (!task) {
       return res.status(400).json({ msg: "Task not found" });
     }
@@ -220,13 +223,13 @@ router.post("/:id/complete", auth, async (req, res) => {
       sgMail.send(msg);
     }
     if (task.taskType == "text") {
-      if (!brokerage.twilioPhone) {
+      if (!from) {
         return res.status(400).json({ msg: "Texting number not set up" });
       }
       //send text through twilio
-      console.log(brokerage.twilioPhone);
+      console.log(from);
       let msg = {
-        from: "+13852573286",
+        from,
         body,
         to: user.phone
       };

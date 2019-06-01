@@ -58,9 +58,9 @@ export const getTaskById = _id => async dispatch => {
 };
 
 // Update a Task
-export const updateTask = _id => async dispatch => {
+export const updateTask = id => async dispatch => {
   try {
-    const res = await axios.post(`/api/task/${_id}`);
+    const res = await axios.post(`/api/task/${id}`);
 
     dispatch({
       type: UPDATE_TASK,
@@ -74,10 +74,17 @@ export const updateTask = _id => async dispatch => {
 };
 
 // Complete Task
-export const completeTask = _id => async dispatch => {
-  try {
-    const res = await axios.get(`/api/task/${_id}/complete`);
+export const completeTask = (id, formData) => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
 
+  console.log(formData + " " + id);
+
+  try {
+    const res = await axios.post(`/api/task/${id}/complete`, formData, config);
     dispatch({
       type: COMPLETE_TASK,
       payload: res.data

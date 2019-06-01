@@ -36,7 +36,8 @@ const TaskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user"
   },
-  status: { //open, complete, in-progress, deleted
+  status: {
+    //open, complete, in-progress, deleted
     type: String,
     default: "open"
   },
