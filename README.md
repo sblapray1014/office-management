@@ -6,7 +6,7 @@ Every Real Estate brokerage has some of the same problems! So many agents are hi
 
 It starts with simple task management. Whether you're sending a welcome email or reminding someone their real estate license is about to expire. All can be done with a few clicks of a button!
 
-- React w/Redux Front End broken into microservices for improved speed and efficiency. 
+- React w/ Hooks and Redux for State Management. Front end broken into microservices for improved speed and efficiency. 
 - JWT Authorization with protected/private routes for authorized user only.
 - Node/Express backend with MongoDB for data storage. CRUD Methods with REST API.
 
