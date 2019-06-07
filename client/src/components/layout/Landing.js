@@ -12,10 +12,11 @@ const Landing = ({ isAuthenticated }) => {
     <section className="landing">
       <div className="dark-overlay">
         <div className="landing-inner">
-          <h1 className="x-large">KW Westfield Management Solutions</h1>
+          <h1 className="x-large">REasy</h1>
           <p className="lead">
-            The place to manage tasks, users and systems. Get things done
-            efficiently!
+            The place for premier Brokerage Management Solutions. The perfect
+            solution to manage tasks, users and systems. Get things done
+            efficiently and get back to what matters most: the people!
           </p>
           <div className="buttons">
             <Link

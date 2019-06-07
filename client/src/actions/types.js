@@ -16,3 +16,4 @@ export const BROKERAGE_TASKS = "BROKERAGE_TASKS";
 export const COMPLETE_TASK = "COMPLETE_TASK";
 export const UPDATE_TASK = "UPDATE_TASK";
 export const GET_TASK = "GET_TASK";
+export const CREATE_TASK = "CREATE_TASK";

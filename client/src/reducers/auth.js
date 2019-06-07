@@ -14,7 +14,8 @@ import {
   TASK_ERROR,
   COMPLETE_TASK,
   GET_TASK,
-  UPDATE_TASK
+  UPDATE_TASK,
+  CREATE_TASK
 } from "../actions/types";
 
 const initialState = {
@@ -88,6 +89,13 @@ export default function(state = initialState, action) {
     case COMPLETE_TASK:
     case GET_TASK:
     case UPDATE_TASK:
+      return {
+        ...state,
+        task: payload,
+        loading: false,
+        isAuthenticated: true
+      };
+    case CREATE_TASK:
       return {
         ...state,
         task: payload,

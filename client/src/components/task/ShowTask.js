@@ -1,25 +1,56 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { getTaskById, completeTask } from "../../actions/task";
 import PropTypes from "prop-types";
+import Moment from "react-moment";
 
 const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
   useEffect(() => {
     getTaskById(match.params.id);
-    completeTask(match.params.id);
-  }, [getTaskById, completeTask, match.params.id]);
-  const { taskName, taskType, status, user, templateInfo, brokerage } = task;
+  }, [getTaskById, match.params.id, completeTask]);
+
+  const {
+    _id,
+    taskName,
+    taskType,
+    status,
+    agent,
+    assignee,
+    templateInfo,
+    brokerage,
+    dueDate
+  } = task;
+
+  console.log(agent);
 
   const subject = templateInfo && templateInfo ? templateInfo.subject : null;
-  const templateBody = templateInfo && templateInfo ? templateInfo.body : null;
+  const body = templateInfo && templateInfo ? templateInfo.body : null;
   const type = templateInfo && templateInfo ? templateInfo.type : null;
-  const phone = user && user ? user.phone : null;
-  const email = user && user ? user.email : null;
-  const recipient = user && user ? user.name : null;
+  const phone = agent && agent ? agent.phone : null;
+  const email = agent && agent ? agent.email : null;
+  const recipient = agent && agent ? agent.name : null;
   const from = brokerage && brokerage ? brokerage.twilioPhone : null;
+
+  const formData = {};
+
+  formData.from = from;
+  formData.body = body;
+  formData.to = email;
+  formData.phone = phone;
+  formData.subject = subject;
+
+  let today = Date.now();
 
   return (
     <div className="single-task">
+      <Link
+        to="/tasks/me"
+        className="btn btn-dark"
+        style={{ marginBottom: "20px" }}
+      >
+        Go Back
+      </Link>
       <div className="w3-card-4">
         <header className="w3-container w3-light-grey">
           <h1>
@@ -39,10 +70,18 @@ const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
               <h5 className="capitalize">Type of Task: {type}</h5>
             </div>
             <div className="form-group">
+              {dueDate ? (
+                <h5 style={{ color: "green" }}>
+                  {" "}
+                  Due Date: <Moment format="MM/DD/YYYY">{dueDate}</Moment>
+                </h5>
+              ) : null}
+            </div>
+            <div className="form-group">
               <h5 className="capitalize">Task Status: {status}</h5>
             </div>
             <div className="form-group">
-              <h5 className="capitalize">From: TODO MY EMAIL</h5>
+              <h5 className="capitalize">From: {from}</h5>
             </div>
             <div className="form-group">
               <h5 className="capitalize">To: {recipient}</h5>
@@ -72,12 +111,13 @@ const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
                   <h5>Text Message: *Only edit if necessary</h5>
                 )}
               </div>
-              <input type="text" name={templateBody} value={templateBody} />
+              <input type="text" name={body} value={body} />
             </div>
           </form>
           <button
             className="btn btn-dark"
             style={{ marginTop: "10px", alignContent: "right" }}
+            onClick={e => completeTask(_id, formData)}
           >
             Complete Task
           </button>

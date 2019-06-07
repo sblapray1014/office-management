@@ -6,7 +6,8 @@ import {
   TASK_ERROR,
   COMPLETE_TASK,
   GET_TASK,
-  UPDATE_TASK
+  UPDATE_TASK,
+  CREATE_TASK
 } from "./types";
 
 // Get Logged in Users Tasks
@@ -58,9 +59,9 @@ export const getTaskById = _id => async dispatch => {
 };
 
 // Update a Task
-export const updateTask = _id => async dispatch => {
+export const updateTask = id => async dispatch => {
   try {
-    const res = await axios.post(`/api/task/${_id}`);
+    const res = await axios.post(`/api/task/${id}`);
 
     dispatch({
       type: UPDATE_TASK,
@@ -74,12 +75,41 @@ export const updateTask = _id => async dispatch => {
 };
 
 // Complete Task
-export const completeTask = _id => async dispatch => {
-  try {
-    const res = await axios.get(`/api/task/${_id}/complete`);
+export const completeTask = (id, formData) => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
 
+  try {
+    const res = await axios.post(`/api/task/${id}/complete`, formData, config);
     dispatch({
       type: COMPLETE_TASK,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: TASK_ERROR
+    });
+  }
+};
+
+// Create Task
+export const createTask = (id, formData) => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  console.log(formData);
+
+  try {
+    const res = await axios.post(`/api/task/${id}`, formData, config);
+
+    dispatch({
+      type: CREATE_TASK,
       payload: res.data
     });
   } catch (err) {

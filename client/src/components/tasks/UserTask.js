@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect } from "react";
+import "./UserTask.css";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { getUserTasks } from "../../actions/task";
 import { loadUser } from "../../actions/auth";
 import UserTaskItem from "./UserTaskItem";
@@ -13,13 +15,22 @@ const UserTask = ({
   useEffect(() => {
     getUserTasks();
     loadUser();
-  }, [getUserTasks, loadUser]);
+  }, [getUserTasks, loadUser, tasks]);
   const userName = ((user || {}).user || {}).name;
+  const userId = ((user || {}).user || {})._id;
 
   return (
     <Fragment>
       <div className="task-display-container">
-        <h1 className="large text-kw">{userName}'s Tasks</h1>
+        <div className="rowC">
+          <h1 className="large text-kw">{userName}'s Tasks</h1>{" "}
+          <Link to={`/create-task/${userId}`}>
+            <i
+              className="fas fa-plus-circle fa-3x"
+              style={{ color: "gray", marginLeft: "480px", marginTop: "16px" }}
+            />
+          </Link>
+        </div>
         <table className="table" style={{ width: "100%" }}>
           <thead>
             <tr>
@@ -37,7 +48,7 @@ const UserTask = ({
             ))
           ) : (
             <tbody style={{ fontWeight: "bold", textAlign: "center" }}>
-              No Tasks Found
+              No Tasks Found!
             </tbody>
           )}
         </table>
@@ -48,6 +59,7 @@ const UserTask = ({
 
 UserTask.propTypes = {
   getUserTasks: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const TaskSchema = new mongoose.Schema({
-  user: {
+  agent: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
     required: true
@@ -36,7 +36,8 @@ const TaskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user"
   },
-  status: { //open, complete, in-progress, deleted
+  status: {
+    //open, complete, in-progress, deleted
     type: String,
     default: "open"
   },

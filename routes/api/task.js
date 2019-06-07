@@ -21,7 +21,7 @@ const client = require("twilio")(accountSid, authToken);
 router.get("/", auth, async (req, res) => {
   try {
     const tasks = await Task.find({ assignee: req.user.id })
-      .populate("user")
+      .populate("agent")
       .populate("brokerage")
       .populate("template");
 
@@ -55,10 +55,11 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     const { brokerage } = req.user;
-    const user = req.params.user;
+    const assignee = req.params.user;
+
     const {
+      agent,
       taskName,
-      assignee,
       taskType,
       status,
       notes,
@@ -67,9 +68,11 @@ router.post(
       description
     } = req.body;
 
+    const userAgent = await User.findOne({ name: agent });
+
     try {
       let task = new Task({
-        user,
+        agent: userAgent.id,
         taskName,
         taskType,
         assignee,
@@ -81,7 +84,7 @@ router.post(
         description
       })
         .populate("brokerage")
-        .populate("user")
+        .populate("agent")
         .populate("template");
 
       await task.save();
@@ -101,7 +104,7 @@ router.get("/brokerage", auth, async (req, res) => {
   try {
     const tasks = await Task.find({ brokerage: req.user.brokerage })
       .populate("brokerage")
-      .populate("user")
+      .populate("agent")
       .populate("template");
     if (tasks.length === 0) {
       return res.json({ msg: "Brokerage has no tasks" });
@@ -121,14 +124,14 @@ router.get("/:id", auth, async (req, res) => {
   const id = req.params.id;
   try {
     let task = await Task.findById(id)
-      .populate("user")
+      .populate("agent")
       .populate("template")
       .populate("brokerage");
 
     if (!task) {
       return res.status(400).json({ msg: "Task not found" });
     }
-    const user = await User.findById(task.user);
+    const user = await User.findById(task.agent);
     const template = await Template.findById(task.template);
 
     task = {
@@ -193,7 +196,7 @@ router.post("/:id", auth, async (req, res) => {
 // @access  Private
 router.post("/:id/complete", auth, async (req, res) => {
   const id = req.params.id;
-  const { body, subject } = req.body;
+  const { body, subject, from } = req.body;
 
   const updates = {};
   updates.status = "complete";
@@ -201,14 +204,19 @@ router.post("/:id/complete", auth, async (req, res) => {
   updates.completedBy = req.user.id;
 
   try {
-    let task = await Task.findById(id);
+    let task = await Task.findById(id)
+      .populate("agent")
+      .populate("template")
+      .populate("brokerage");
     if (!task) {
       return res.status(400).json({ msg: "Task not found" });
     }
 
-    const user = await User.findById(task.user);
-    const assignee = await User.findById(task.assignee);
+    const user = await User.findById(task.agent);
+    const assignee = await User.findById(task.assignee).populate("user");
     const brokerage = await Brokerage.findById(assignee.brokerage);
+
+    console.log(assignee.email);
 
     if (task.taskType == "email") {
       let msg = {
@@ -217,16 +225,17 @@ router.post("/:id/complete", auth, async (req, res) => {
         subject,
         text: body
       };
+      console.log(msg);
       sgMail.send(msg);
     }
     if (task.taskType == "text") {
-      if (!brokerage.twilioPhone) {
+      if (!from) {
         return res.status(400).json({ msg: "Texting number not set up" });
       }
       //send text through twilio
-      console.log(brokerage.twilioPhone);
+      console.log(from);
       let msg = {
-        from: "+13852573286",
+        from,
         body,
         to: user.phone
       };
