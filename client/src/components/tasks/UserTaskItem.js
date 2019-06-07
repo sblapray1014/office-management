@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const UserTaskItem = ({
-  task: { user, assignee, status, taskName, taskType, _id },
+  task: { agent, assignee, status, taskName, taskType, _id },
   authUser
 }) => {
+  console.log(agent);
   return (
     <Fragment>
       {status === "complete" ? null : (
@@ -16,7 +17,7 @@ const UserTaskItem = ({
               {taskName}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
-              {user.name}
+              {agent.name}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
               {assignee === authUser.user._id ? (

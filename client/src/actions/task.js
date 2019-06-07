@@ -6,7 +6,8 @@ import {
   TASK_ERROR,
   COMPLETE_TASK,
   GET_TASK,
-  UPDATE_TASK
+  UPDATE_TASK,
+  CREATE_TASK
 } from "./types";
 
 // Get Logged in Users Tasks
@@ -81,12 +82,34 @@ export const completeTask = (id, formData) => async dispatch => {
     }
   };
 
-  console.log(formData + " " + id);
-
   try {
     const res = await axios.post(`/api/task/${id}/complete`, formData, config);
     dispatch({
       type: COMPLETE_TASK,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: TASK_ERROR
+    });
+  }
+};
+
+// Create Task
+export const createTask = (id, formData) => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  console.log(formData);
+
+  try {
+    const res = await axios.post(`/api/task/${id}`, formData, config);
+
+    dispatch({
+      type: CREATE_TASK,
       payload: res.data
     });
   } catch (err) {

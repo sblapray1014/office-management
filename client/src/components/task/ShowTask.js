@@ -1,5 +1,6 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { getTaskById, completeTask } from "../../actions/task";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
@@ -7,36 +8,49 @@ import Moment from "react-moment";
 const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
   useEffect(() => {
     getTaskById(match.params.id);
-    completeTask(match.params.id);
-  }, [getTaskById, completeTask, match.params.id]);
+  }, [getTaskById, match.params.id, completeTask]);
+
   const {
     _id,
     taskName,
     taskType,
     status,
-    user,
+    agent,
+    assignee,
     templateInfo,
     brokerage,
     dueDate
   } = task;
 
+  console.log(agent);
+
   const subject = templateInfo && templateInfo ? templateInfo.subject : null;
   const body = templateInfo && templateInfo ? templateInfo.body : null;
   const type = templateInfo && templateInfo ? templateInfo.type : null;
-  const phone = user && user ? user.phone : null;
-  const email = user && user ? user.email : null;
-  const recipient = user && user ? user.name : null;
+  const phone = agent && agent ? agent.phone : null;
+  const email = agent && agent ? agent.email : null;
+  const recipient = agent && agent ? agent.name : null;
   const from = brokerage && brokerage ? brokerage.twilioPhone : null;
 
   const formData = {};
 
   formData.from = from;
   formData.body = body;
+  formData.to = email;
+  formData.phone = phone;
+  formData.subject = subject;
 
   let today = Date.now();
 
   return (
     <div className="single-task">
+      <Link
+        to="/tasks/me"
+        className="btn btn-dark"
+        style={{ marginBottom: "20px" }}
+      >
+        Go Back
+      </Link>
       <div className="w3-card-4">
         <header className="w3-container w3-light-grey">
           <h1>
