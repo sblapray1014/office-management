@@ -22,8 +22,6 @@ const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
     dueDate
   } = task;
 
-  console.log(agent);
-
   const subject = templateInfo && templateInfo ? templateInfo.subject : null;
   const body = templateInfo && templateInfo ? templateInfo.body : null;
   const type = templateInfo && templateInfo ? templateInfo.type : null;
@@ -54,7 +52,7 @@ const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
       <div className="w3-card-4">
         <header className="w3-container w3-light-grey">
           <h1>
-            {taskName} to {recipient}
+            {taskName} for {recipient}
           </h1>
         </header>
         <div

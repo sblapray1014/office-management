@@ -103,8 +103,6 @@ export const createTask = (id, formData) => async dispatch => {
     }
   };
 
-  console.log(formData);
-
   try {
     const res = await axios.post(`/api/task/${id}`, formData, config);
 

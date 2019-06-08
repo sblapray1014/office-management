@@ -7,7 +7,6 @@ const UserTaskItem = ({
   task: { agent, assignee, status, taskName, taskType, _id },
   authUser
 }) => {
-  console.log(agent);
   return (
     <Fragment>
       {status === "complete" ? null : (
@@ -20,11 +19,7 @@ const UserTaskItem = ({
               {agent.name}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
-              {assignee === authUser.user._id ? (
-                <p>{authUser.user.name}</p>
-              ) : (
-                <p>User Not Found</p>
-              )}
+              {assignee.name}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
               {status}

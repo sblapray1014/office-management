@@ -23,6 +23,7 @@ router.get("/", auth, async (req, res) => {
     const tasks = await Task.find({ assignee: req.user.id })
       .populate("agent")
       .populate("brokerage")
+      .populate("assignee")
       .populate("template");
 
     if (tasks.length === 0) {
@@ -57,6 +58,8 @@ router.post(
     const { brokerage } = req.user;
     const assignee = req.params.user;
 
+    console.log(req.body);
+
     const {
       agent,
       taskName,
@@ -69,7 +72,9 @@ router.post(
     } = req.body;
 
     const userAgent = await User.findOne({ name: agent });
+    const templateInfo = await Template.findOne({ title: template });
 
+    console.log(templateInfo);
     try {
       let task = new Task({
         agent: userAgent.id,
@@ -78,13 +83,14 @@ router.post(
         assignee,
         brokerage,
         status,
-        template,
+        template: templateInfo._id,
         notes,
         dueDate,
         description
       })
         .populate("brokerage")
         .populate("agent")
+        .populate("assignee")
         .populate("template");
 
       await task.save();
@@ -105,6 +111,7 @@ router.get("/brokerage", auth, async (req, res) => {
     const tasks = await Task.find({ brokerage: req.user.brokerage })
       .populate("brokerage")
       .populate("agent")
+      .populate("assignee")
       .populate("template");
     if (tasks.length === 0) {
       return res.json({ msg: "Brokerage has no tasks" });
@@ -125,6 +132,7 @@ router.get("/:id", auth, async (req, res) => {
   try {
     let task = await Task.findById(id)
       .populate("agent")
+      .populate("assignee")
       .populate("template")
       .populate("brokerage");
 

@@ -3,15 +3,14 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
 const BrokerageTaskItem = ({
-  task: { user, assignee, status, taskName, taskType, _id },
-  agent,
+  task: { agent, assignee, status, taskName, taskType, _id },
   users,
   brokerage
 }) => {
-  const newUserObject = {};
+  // const newUserObject = {};
 
-  newUserObject.id = user._id;
-  newUserObject.name = user.name;
+  // newUserObject.id = user._id;
+  // newUserObject.name = user.name;
 
   return (
     <Fragment>
@@ -22,14 +21,10 @@ const BrokerageTaskItem = ({
               {taskName}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
-              {user._id === agent._id ? (
-                <p>{agent.name}</p>
-              ) : (
-                <span>Agent not found</span>
-              )}
+              {agent.name}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
-              TODO - Get Assignee
+              {assignee.name}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
               {status}

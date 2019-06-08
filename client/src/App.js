@@ -11,6 +11,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import Users from "./components/users/Users";
 import ShowTask from "./components/task/ShowTask";
 import CreateTask from "./components/task/CreateTask";
+import Alert from "./components/layout/Alert";
 //Redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -50,6 +51,7 @@ const App = () => {
                 component={CreateTask}
               />
             </Switch>
+            <Alert />
           </section>
         </Fragment>
       </Router>
