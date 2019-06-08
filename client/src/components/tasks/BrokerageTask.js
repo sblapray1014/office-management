@@ -43,12 +43,7 @@ const BrokerageTask = ({
           </thead>
           {tasks.length > 0 ? (
             tasks.map(task => (
-              <BrokerageTaskItem
-                key={task._id}
-                task={task}
-                agent={task.user}
-                users={users}
-              />
+              <BrokerageTaskItem key={task._id} task={task} users={users} />
             ))
           ) : (
             <tbody style={{ fontWeight: "bold", textAlign: "center" }}>

@@ -22,8 +22,8 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-// @route   POST api/task
-// @desc    create a task
+// @route   POST api/template
+// @desc    create a template
 // @access  Private
 router.post(
   "/",

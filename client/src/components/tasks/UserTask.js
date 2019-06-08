@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./UserTask.css";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -14,8 +14,8 @@ const UserTask = ({
 }) => {
   useEffect(() => {
     getUserTasks();
-    loadUser();
-  }, [getUserTasks, loadUser, tasks]);
+  }, [getUserTasks]);
+
   const userName = ((user || {}).user || {}).name;
   const userId = ((user || {}).user || {})._id;
 

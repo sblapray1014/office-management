@@ -1,19 +1,24 @@
 import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { createTask } from "../../actions/task";
 import { loadUser, getUsers } from "../../actions/auth";
+import { getTemplates } from "../../actions/template";
 
 const CreateTask = ({
   createTask,
+  getTemplates,
   getUsers,
   auth: { user, users },
+  template: { templates },
   history,
   match
 }) => {
   useEffect(() => {
     loadUser();
     getUsers();
+    getTemplates();
   }, [getUsers, match.params.id]);
 
   const userId = match.params.id;
@@ -58,6 +63,13 @@ const CreateTask = ({
 
   return (
     <Fragment>
+      <Link
+        to="/tasks/me"
+        className="btn btn-dark"
+        style={{ marginBottom: "20px" }}
+      >
+        Back To Tasks
+      </Link>
       <h1 className="large text-kw">Create A Task</h1>
       <p className="lead">
         This is where you'll create and add tasks that need to be done for
@@ -138,14 +150,23 @@ const CreateTask = ({
           />
         </div>
         <div className="form-group">
-          <textarea
+          <select
             name="template"
-            cols="30"
-            rows="5"
-            placeholder="Template"
             value={template}
+            onClick={e => onChange(e)}
             onChange={e => onChange(e)}
-          />
+            placeholder="Select an Option"
+          >
+            {templates.length > 0 ? (
+              templates.map(template => (
+                <option key={template._id} value={template.title}>
+                  {template.title}
+                </option>
+              ))
+            ) : (
+              <option>No Templates Found</option>
+            )}
+          </select>
         </div>
         <div className="form-group">
           <input
@@ -165,15 +186,17 @@ const CreateTask = ({
 CreateTask.propTypes = {
   createTask: PropTypes.func.isRequired,
   getUsers: PropTypes.func.isRequired,
+  getTemplates: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   loadUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  template: state.template
 });
 
 export default connect(
   mapStateToProps,
-  { createTask, loadUser, getUsers }
+  { createTask, loadUser, getUsers, getTemplates }
 )(CreateTask);
