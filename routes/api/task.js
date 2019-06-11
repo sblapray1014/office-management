@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator/check");
-const config = require("config");
 const sgMail = require("@sendgrid/mail");
 
 const Task = require("../../models/Task");
@@ -10,9 +9,11 @@ const User = require("../../models/User");
 const Brokerage = require("../../models/Brokerage");
 const auth = require("../../middleware/auth");
 
-sgMail.setApiKey(config.get("sendgridKey"));
-const accountSid = config.get("twilioId");
-const authToken = config.get("twilioAuth");
+const keys = require("../../config/keys");
+
+sgMail.setApiKey(keys.sendgridKey);
+const accountSid = keys.twilioId;
+const authToken = keys.twilioAuth;
 const client = require("twilio")(accountSid, authToken);
 
 // @route   GET api/task
