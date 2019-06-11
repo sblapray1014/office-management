@@ -8,7 +8,6 @@ const bcrypt = require("bcryptjs");
 const keys = require("../../config/keys");
 
 const User = require("../../models/User");
-const Brokerage = require("../../models/Brokerage");
 
 // @route   GET api/auth
 // @desc    Get Auth User
