@@ -30,7 +30,7 @@ const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
   const recipient = agent && agent ? agent.name : null;
   const from = brokerage && brokerage ? brokerage.twilioPhone : null;
 
-  const formData = {};
+  let formData = {};
 
   formData.from = from;
   formData.body = body;
@@ -65,31 +65,39 @@ const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
         >
           <form className="form">
             <div className="form-group">
-              <h5 className="capitalize">Type of Task: {type}</h5>
+              <h5 className="capitalize" name={task}>
+                Type of Task: {type}
+              </h5>
             </div>
             <div className="form-group">
               {dueDate ? (
-                <h5 style={{ color: "green" }}>
+                <h5 style={{ color: "green" }} name={dueDate}>
                   {" "}
                   Due Date: <Moment format="MM/DD/YYYY">{dueDate}</Moment>
                 </h5>
               ) : null}
             </div>
             <div className="form-group">
-              <h5 className="capitalize">Task Status: {status}</h5>
+              <h5 className="capitalize" name="status">
+                Task Status: {status}
+              </h5>
             </div>
             <div className="form-group">
-              <h5 className="capitalize">From: {from}</h5>
+              <h5 className="capitalize" name={from}>
+                From: {from}
+              </h5>
             </div>
             <div className="form-group">
-              <h5 className="capitalize">To: {recipient}</h5>
+              <h5 className="capitalize" name={recipient}>
+                To: {recipient}
+              </h5>
             </div>
             <div className="form-group">
               <h5>
                 {type === "email" ? (
-                  <h5>Email: {email}</h5>
+                  <h5 name={email}>Email: {email}</h5>
                 ) : (
-                  <h5>Phone: {phone}</h5>
+                  <h5 name={phone}>Phone: {phone}</h5>
                 )}
               </h5>
             </div>
@@ -109,7 +117,7 @@ const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
                   <h5>Text Message: *Only edit if necessary</h5>
                 )}
               </div>
-              <input type="text" name={body} value={body} />
+              <input type="text" name="body" value={body} />
             </div>
           </form>
           <button
@@ -127,7 +135,8 @@ const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
 
 ShowTask.propTypes = {
   getTaskById: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  body: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({

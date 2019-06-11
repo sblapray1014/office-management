@@ -32,6 +32,7 @@ router.get("/all", auth, async (req, res) => {
     const users = await User.find()
       .populate("user", ["name"])
       .populate("brokerage");
+
     res.json(users);
   } catch (err) {
     console.error(err.message);

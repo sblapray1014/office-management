@@ -74,7 +74,6 @@ router.post(
     const userAgent = await User.findOne({ name: agent });
     const templateInfo = await Template.findOne({ title: template });
 
-    console.log(templateInfo);
     try {
       let task = new Task({
         agent: userAgent.id,
@@ -219,12 +218,10 @@ router.post("/:id/complete", auth, async (req, res) => {
     if (!task) {
       return res.status(400).json({ msg: "Task not found" });
     }
-
+    console.log(task);
     const user = await User.findById(task.agent);
     const assignee = await User.findById(task.assignee).populate("user");
     const brokerage = await Brokerage.findById(assignee.brokerage);
-
-    console.log(assignee.email);
 
     if (task.taskType == "email") {
       let msg = {
@@ -236,6 +233,7 @@ router.post("/:id/complete", auth, async (req, res) => {
       console.log(msg);
       sgMail.send(msg);
     }
+
     if (task.taskType == "text") {
       if (!from) {
         return res.status(400).json({ msg: "Texting number not set up" });
