@@ -90,6 +90,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             <select
               name="inCoaching"
               value={inCoaching}
+              onClick={e => onChange(e)}
               onChange={e => onChange(e)}
             >
               <option value="No">No</option>
@@ -100,7 +101,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             <span style={{ fontWeight: "bold" }}>
               Is this agent on a team? **This field defaults to no
             </span>
-            <select name="onTeam" value={onTeam} onChange={e => onChange(e)}>
+            <select
+              name="onTeam"
+              value={onTeam}
+              onChange={e => onChange(e)}
+              onClick={e => onChange(e)}
+            >
               <option value="No">No</option>
               <option value="Yes">Yes</option>
             </select>

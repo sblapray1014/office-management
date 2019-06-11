@@ -51,7 +51,7 @@ router.post(
         subject,
         body,
         type
-      });
+      }).populate("brokerage");
 
       await template.save();
 

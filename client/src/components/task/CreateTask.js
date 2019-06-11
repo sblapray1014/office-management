@@ -19,7 +19,7 @@ const CreateTask = ({
     loadUser();
     getUsers();
     getTemplates();
-  }, [getUsers, match.params.id]);
+  }, [getUsers, getTemplates, match.params.id]);
 
   const userId = match.params.id;
 
@@ -157,6 +157,7 @@ const CreateTask = ({
             onChange={e => onChange(e)}
             placeholder="Select an Option"
           >
+            <option key={template._id}>Please Select a Template</option>
             {templates.length > 0 ? (
               templates.map(template => (
                 <option key={template._id} value={template.title}>
