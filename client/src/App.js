@@ -13,6 +13,7 @@ import Users from "./components/users/Users";
 import ShowTask from "./components/task/ShowTask";
 import CreateTask from "./components/task/CreateTask";
 import Alert from "./components/layout/Alert";
+import UserCompleted from "./components/tasks/completed-tasks/UserCompleted";
 //Redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -41,6 +42,11 @@ const App = () => {
               <Route exact path="/about" component={About} />
               <PrivateRoute exact path="/users" component={Users} />
               <PrivateRoute exact path="/tasks/me" component={UserTask} />
+              <PrivateRoute
+                exact
+                path="/tasks/me/completed"
+                component={UserCompleted}
+              />
               <PrivateRoute
                 exact
                 path="/tasks/brokerage"

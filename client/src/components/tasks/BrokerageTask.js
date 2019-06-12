@@ -9,7 +9,8 @@ const BrokerageTask = ({
   getBrokerageTasks,
   getBrokerages,
   getUsers,
-  auth: { user, tasks, users, loading }
+  auth: { user, users, loading },
+  tasks: { tasks }
 }) => {
   useEffect(() => {
     getBrokerageTasks();
@@ -38,7 +39,6 @@ const BrokerageTask = ({
               <th style={{ textAlign: "center" }}>Assignee</th>
               <th style={{ textAlign: "center" }}>Status</th>
               <th style={{ textAlign: "center" }}>Task Type</th>
-              <th style={{ textAlign: "center" }}>Complete Task</th>
             </tr>
           </thead>
           {tasks.length > 0 ? (
@@ -59,12 +59,14 @@ const BrokerageTask = ({
 BrokerageTask.propTypes = {
   getBrokerageTasks: PropTypes.func.isRequired,
   getBrokerages: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  tasks: PropTypes.object
 };
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  auth: state.auth
+  auth: state.auth,
+  tasks: state.task
 });
 
 export default connect(

@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect } from "react";
-import "./UserTask.css";
+import "../UserTask.css";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getUserTasks } from "../../actions/task";
-import { loadUser } from "../../actions/auth";
-import UserTaskItem from "./UserTaskItem";
+import { getUserTasks } from "../../../actions/task";
+import { loadUser } from "../../../actions/auth";
+import UserCompletedItem from "./UserCompletedItem";
 import PropTypes from "prop-types";
-import Spinner from "../layout/Spinner";
+import Spinner from "../../layout/Spinner";
 
 const UserTask = ({
   getUserTasks,
@@ -27,32 +27,11 @@ const UserTask = ({
     return (
       <Fragment>
         <div className="task-display-container">
+          <Link to="/tasks/me" className="btn btn-dark">
+            Go Back to Tasks
+          </Link>
           <div className="rowC">
-            <h1 className="large text-kw">{userName}'s Tasks</h1>{" "}
-            <div>
-              <Link
-                to="/tasks/me/completed"
-                className="btn btn-kw"
-                style={{
-                  marginLeft: "260px",
-                  padding: "10px",
-                  width: "140px",
-                  marginTop: "19px",
-                  color: "white"
-                }}
-              >
-                Completed Tasks
-              </Link>
-            </div>
-            <div>
-              <Link
-                to={`/create-task/${userId}`}
-                className="btn btn-kw"
-                style={taskStyle}
-              >
-                Create a Task
-              </Link>
-            </div>
+            <h1 className="large text-kw">{userName}'s Completed Tasks</h1>{" "}
           </div>
           <table className="table" style={{ width: "100%" }}>
             <thead>
@@ -67,7 +46,7 @@ const UserTask = ({
             </thead>
             {tasks.length > 0 ? (
               tasks.map(task => (
-                <UserTaskItem key={task._id} task={task} authUser={user} />
+                <UserCompletedItem key={task._id} task={task} authUser={user} />
               ))
             ) : (
               <table className="table" style={{ width: "100%" }}>
@@ -98,7 +77,7 @@ const UserTask = ({
 };
 
 const taskStyle = {
-  marginLeft: "10px",
+  marginLeft: "400px",
   padding: "10px",
   marginTop: "19px",
   color: "white"

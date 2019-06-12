@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-  GET_TEMPLATES,
-  GET_TEMPLATE,
-  CREATE_TEMPLATE,
-  TEMPLATE_ERROR
-} from "./types";
+import { GET_TEMPLATES, CREATE_TEMPLATE, TEMPLATE_ERROR } from "./types";
 
 export const getTemplates = () => async dispatch => {
   try {
@@ -20,3 +15,5 @@ export const getTemplates = () => async dispatch => {
     });
   }
 };
+
+export const getTemplate = () => async dispatch => {};

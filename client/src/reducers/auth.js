@@ -8,14 +8,7 @@ import {
   AUTH_ERROR,
   GET_USERS,
   USERS_ERROR,
-  GET_BROKERAGES,
-  USER_TASKS,
-  BROKERAGE_TASKS,
-  TASK_ERROR,
-  COMPLETE_TASK,
-  GET_TASK,
-  UPDATE_TASK,
-  CREATE_TASK
+  GET_BROKERAGES
 } from "../actions/types";
 
 const initialState = {
@@ -23,9 +16,7 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   users: [],
-  brokerages: {},
-  tasks: {},
-  task: {}
+  brokerages: {}
 };
 
 export default function(state = initialState, action) {
@@ -62,14 +53,6 @@ export default function(state = initialState, action) {
         loading: false,
         isAuthenticated: true
       };
-    case USER_TASKS:
-    case BROKERAGE_TASKS:
-      return {
-        ...state,
-        tasks: payload,
-        loading: false,
-        isAuthenticed: true
-      };
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
@@ -80,25 +63,8 @@ export default function(state = initialState, action) {
         loading: false
       };
     case USERS_ERROR:
-    case TASK_ERROR:
       return {
         ...state,
-        loading: false,
-        isAuthenticated: true
-      };
-    case COMPLETE_TASK:
-    case GET_TASK:
-    case UPDATE_TASK:
-      return {
-        ...state,
-        task: payload,
-        loading: false,
-        isAuthenticated: true
-      };
-    case CREATE_TASK:
-      return {
-        ...state,
-        task: payload,
         loading: false,
         isAuthenticated: true
       };

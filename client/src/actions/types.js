@@ -18,6 +18,5 @@ export const UPDATE_TASK = "UPDATE_TASK";
 export const GET_TASK = "GET_TASK";
 export const CREATE_TASK = "CREATE_TASK";
 export const GET_TEMPLATES = "GET_TEMPLATES";
-export const GET_TEMPLATE = "GET_TEMPLATE";
 export const CREATE_TEMPLATE = "CREATE_TEMPLATE";
 export const TEMPLATE_ERROR = "TEMPLATE_ERROR";
