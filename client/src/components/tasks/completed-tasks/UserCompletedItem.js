@@ -1,27 +1,24 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
-const BrokerageTaskItem = ({
+const UserCompletedItem = ({
   task: { agent, assignee, status, taskName, taskType, _id },
-  users,
-  brokerage
+  authUser
 }) => {
-  // const newUserObject = {};
-
-  // newUserObject.id = user._id;
-  // newUserObject.name = user.name;
+  const agentName = agent && agent ? agent.name : null;
 
   return (
     <Fragment>
-      {status === "complete" ? null : (
+      {status === "complete" ? (
         <tbody>
           <tr key={_id}>
             <td className="agent-font" style={{ textAlign: "center" }}>
               {taskName}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
-              {agent.name}
+              {agentName}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
               {assignee.name}
@@ -30,18 +27,23 @@ const BrokerageTaskItem = ({
               {status}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
-              {taskType === {} ? <p>See task tame!</p> : <p>{taskType}</p>}
+              {taskType === {} ? <p>See Task Name!</p> : <p>{taskType}</p>}
+            </td>
+            <td className="agent-font" style={{ textAlign: "center" }}>
+              <Link to={`/tasks/me/${_id}`} className="btn btn-dark">
+                Complete Task
+              </Link>
             </td>
           </tr>
         </tbody>
-      )}
+      ) : null}
     </Fragment>
   );
 };
 
-BrokerageTaskItem.propTypes = {
+UserCompletedItem.propTypes = {
   task: PropTypes.object.isRequired,
-  brokerage: PropTypes.object
+  authUser: PropTypes.object.isRequired
 };
 
-export default BrokerageTaskItem;
+export default UserCompletedItem;

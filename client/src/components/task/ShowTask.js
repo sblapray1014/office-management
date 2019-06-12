@@ -5,7 +5,7 @@ import { getTaskById, completeTask } from "../../actions/task";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 
-const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
+const ShowTask = ({ getTaskById, completeTask, tasks: { task }, match }) => {
   useEffect(() => {
     getTaskById(match.params.id);
   }, [getTaskById, match.params.id, completeTask]);
@@ -13,10 +13,8 @@ const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
   const {
     _id,
     taskName,
-    taskType,
     status,
     agent,
-    assignee,
     templateInfo,
     brokerage,
     dueDate
@@ -38,7 +36,7 @@ const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
   formData.phone = phone;
   formData.subject = subject;
 
-  let today = Date.now();
+  // let today = Date.now();
 
   return (
     <div className="single-task">
@@ -135,12 +133,12 @@ const ShowTask = ({ getTaskById, completeTask, auth: { task }, match }) => {
 
 ShowTask.propTypes = {
   getTaskById: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  tasks: PropTypes.object,
   body: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  tasks: state.task
 });
 
 export default connect(

@@ -59,8 +59,6 @@ router.post(
     const { brokerage } = req.user;
     const assignee = req.params.user;
 
-    console.log(req.body);
-
     const {
       agent,
       taskName,
@@ -231,7 +229,7 @@ router.post("/:id/complete", auth, async (req, res) => {
         subject,
         text: body
       };
-      console.log(sgMail.send(msg));
+      sgMail.send(msg);
     }
 
     if (task.taskType == "text") {
@@ -239,14 +237,12 @@ router.post("/:id/complete", auth, async (req, res) => {
         return res.status(400).json({ msg: "Texting number not set up" });
       }
       //send text through twilio
-      console.log(from);
       let msg = {
         from,
         body,
         to: user.phone
       };
       const sms = await client.messages.create(msg);
-      console.log(sms);
     }
 
     task = await Task.findOneAndUpdate(
