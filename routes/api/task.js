@@ -219,7 +219,7 @@ router.post("/:id/complete", auth, async (req, res) => {
     if (!task) {
       return res.status(400).json({ msg: "Task not found" });
     }
-    console.log(task);
+
     const user = await User.findById(task.agent);
     const assignee = await User.findById(task.assignee).populate("user");
     const brokerage = await Brokerage.findById(assignee.brokerage);
@@ -231,8 +231,7 @@ router.post("/:id/complete", auth, async (req, res) => {
         subject,
         text: body
       };
-      console.log(msg);
-      sgMail.send(msg);
+      console.log(sgMail.send(msg));
     }
 
     if (task.taskType == "text") {

@@ -19,11 +19,7 @@ const Landing = ({ isAuthenticated }) => {
             efficiently and get back to what matters most: the people!
           </p>
           <div className="buttons">
-            <Link
-              to="/register"
-              className="btn btn-kw"
-              style={{ color: "white" }}
-            >
+            <Link to="/about" className="btn btn-kw" style={{ color: "white" }}>
               Sign Up
             </Link>
             <Link to="/login" className="btn btn-light">
