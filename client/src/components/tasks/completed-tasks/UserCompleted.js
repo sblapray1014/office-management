@@ -41,7 +41,7 @@ const UserTask = ({
                 <th style={{ textAlign: "center" }}>Assignee</th>
                 <th style={{ textAlign: "center" }}>Status</th>
                 <th style={{ textAlign: "center" }}>Task Type</th>
-                <th style={{ textAlign: "center" }}>Complete Task</th>
+                <th style={{ textAlign: "center" }}>Date Completed</th>
               </tr>
             </thead>
             {tasks.length > 0 ? (

@@ -1,10 +1,11 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import Moment from "react-moment";
 
 import PropTypes from "prop-types";
 
 const UserTaskItem = ({
-  task: { agent, assignee, status, taskName, taskType, _id },
+  task: { agent, assignee, status, taskName, taskType, _id, dueDate },
   authUser
 }) => {
   return (
@@ -26,6 +27,9 @@ const UserTaskItem = ({
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
               {taskType === {} ? <p>See Task Name!</p> : <p>{taskType}</p>}
+            </td>
+            <td className="agent-font" style={{ textAlign: "center" }}>
+              <Moment format="MM/DD/YYYY">{dueDate}</Moment>
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
               <Link to={`/tasks/me/${_id}`} className="btn btn-dark">

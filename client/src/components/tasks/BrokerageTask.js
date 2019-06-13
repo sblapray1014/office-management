@@ -38,6 +38,7 @@ const BrokerageTask = ({
               <th style={{ textAlign: "center" }}>Agent</th>
               <th style={{ textAlign: "center" }}>Assignee</th>
               <th style={{ textAlign: "center" }}>Status</th>
+              <th style={{ textAlign: "center" }}>Due Date</th>
               <th style={{ textAlign: "center" }}>Task Type</th>
             </tr>
           </thead>
