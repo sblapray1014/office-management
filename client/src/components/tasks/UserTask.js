@@ -62,6 +62,7 @@ const UserTask = ({
                 <th style={{ textAlign: "center" }}>Assignee</th>
                 <th style={{ textAlign: "center" }}>Status</th>
                 <th style={{ textAlign: "center" }}>Task Type</th>
+                <th style={{ textAlign: "center" }}>Due Date</th>
                 <th style={{ textAlign: "center" }}>Complete Task</th>
               </tr>
             </thead>
@@ -78,6 +79,7 @@ const UserTask = ({
                     <th style={{ textAlign: "center" }}>Assignee</th>
                     <th style={{ textAlign: "center" }}>Status</th>
                     <th style={{ textAlign: "center" }}>Task Type</th>
+                    <th style={{ textAlign: "center" }}>Due Date</th>
                     <th style={{ textAlign: "center" }}>Complete Task</th>
                   </tr>
                 </thead>

@@ -1,10 +1,11 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import Moment from "react-moment";
 
 import PropTypes from "prop-types";
 
 const UserCompletedItem = ({
-  task: { agent, assignee, status, taskName, taskType, _id },
+  task: { agent, assignee, status, taskName, taskType, _id, completeDate },
   authUser
 }) => {
   const agentName = agent && agent ? agent.name : null;
@@ -30,9 +31,7 @@ const UserCompletedItem = ({
               {taskType === {} ? <p>See Task Name!</p> : <p>{taskType}</p>}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
-              <Link to={`/tasks/me/${_id}`} className="btn btn-dark">
-                Complete Task
-              </Link>
+              <Moment format="MM/DD/YYYY">{completeDate}</Moment>
             </td>
           </tr>
         </tbody>

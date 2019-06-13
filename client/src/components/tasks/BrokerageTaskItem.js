@@ -1,11 +1,10 @@
 import React, { Fragment } from "react";
+import Moment from "react-moment";
 
 import PropTypes from "prop-types";
 
 const BrokerageTaskItem = ({
-  task: { agent, assignee, status, taskName, taskType, _id },
-  users,
-  brokerage
+  task: { agent, assignee, status, taskName, taskType, _id, dueDate }
 }) => {
   // const newUserObject = {};
 
@@ -28,6 +27,9 @@ const BrokerageTaskItem = ({
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
               {status}
+            </td>
+            <td className="agent-font" style={{ textAlign: "center" }}>
+              <Moment format="MM/DD/YYYY">{dueDate}</Moment>
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
               {taskType === {} ? <p>See task tame!</p> : <p>{taskType}</p>}

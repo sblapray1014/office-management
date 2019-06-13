@@ -10,7 +10,9 @@ const auth = require("../../middleware/auth");
 // @access  Private
 router.get("/", auth, async (req, res) => {
   try {
-    const templates = await Template.find({ brokerage: req.user.brokerage });
+    const templates = await Template.find({
+      brokerage: req.user.brokerage
+    }).populate("brokerage");
     if (templates.length === 0) {
       return res.json({ msg: "Brokerage has no templates" });
     }
