@@ -15,7 +15,7 @@ const UserTask = ({
   tasks: { tasks }
 }) => {
   useEffect(() => {
-    getUserTasks();
+    getUserTasks(tasks);
   }, [getUserTasks]);
 
   const userName = ((user || {}).user || {}).name;

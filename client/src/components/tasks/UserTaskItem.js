@@ -26,7 +26,11 @@ const UserTaskItem = ({
               {status}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
-              {taskType === {} ? <p>See Task Name!</p> : <p>{taskType}</p>}
+              {taskType === {} ? (
+                <p>See Task Name!</p>
+              ) : (
+                <p>{taskType.charAt(0).toUpperCase() + taskType.slice(1)}</p>
+              )}
             </td>
             <td className="agent-font" style={{ textAlign: "center" }}>
               <Moment format="MM/DD/YYYY">{dueDate}</Moment>

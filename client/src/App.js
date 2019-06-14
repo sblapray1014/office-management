@@ -10,6 +10,7 @@ import UserTask from "./components/tasks/UserTask";
 import BrokerageTask from "./components/tasks/BrokerageTask";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import Users from "./components/users/Users";
+import Templates from "./components/templates/Templates";
 import ShowTask from "./components/task/ShowTask";
 import CreateTask from "./components/task/CreateTask";
 import Alert from "./components/layout/Alert";
@@ -52,6 +53,7 @@ const App = () => {
                 path="/tasks/brokerage"
                 component={BrokerageTask}
               />
+              <PrivateRoute exact path="/templates" component={Templates} />
               <PrivateRoute exact path="/tasks/me/:id" component={ShowTask} />
               <PrivateRoute
                 exact

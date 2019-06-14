@@ -28,6 +28,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Link>
       </li>
       <li>
+        <Link to="/templates">
+          <i className="fas fa-clipboard" /> <span>Brokerage Templates</span>
+        </Link>
+      </li>
+      <li>
         <Link to="#!" onClick={logout}>
           <i className="fas fa-sign-out-alt" />
           <span>Logout</span>
