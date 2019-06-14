@@ -27,7 +27,11 @@ const UserTask = ({
     return (
       <Fragment>
         <div className="task-display-container">
-          <Link to="/tasks/me" className="btn btn-dark">
+          <Link
+            to="/tasks/me"
+            className="btn btn-dark"
+            style={{ marginBottom: "20px" }}
+          >
             Go Back to Tasks
           </Link>
           <div className="rowC">
