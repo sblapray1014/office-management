@@ -21,7 +21,7 @@
     "express-validator": "^5.3.1",
     "googleapis": "^39.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.5.8",
+    "mongoose": "^5.7.5",
     "request": "^2.88.0",
     "twilio": "^3.31.0"
   },
